@@ -6,4 +6,6 @@ import org.orange.domain.response.ResponseResult;
 
 public interface ArticleService extends IService<Article> {
     ResponseResult hotArticleList();
+
+    ResponseResult articleList(Long categoryId, Long pageNum, Long pageSize);
 }

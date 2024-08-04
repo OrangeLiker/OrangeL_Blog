@@ -2,10 +2,7 @@ package org.orange.controller;
 
 import org.orange.domain.entity.Article;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.orange.service.ArticleService;
 import org.orange.domain.response.ResponseResult;
 import java.util.List;
@@ -34,5 +31,9 @@ public class ArticleController {
         ResponseResult result=articleService.hotArticleList();
         return result;
     }
-
+    //分页查询
+    @GetMapping("/articleList")
+    public ResponseResult articleList(Long categoryId,Long pageNum,Long pageSize){
+        return articleService.articleList(categoryId,pageNum,pageSize);
+    }
 }
