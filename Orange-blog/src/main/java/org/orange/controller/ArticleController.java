@@ -1,0 +1,31 @@
+package org.orange.controller;
+
+import org.orange.domain.entity.Article;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.orange.service.ArticleService;
+
+import java.util.List;
+
+/**
+ * @BelongsProject: Orange_Blog
+ * @ClassName ArticleController
+ * @Description TODO
+ * @Author WangZJ0908
+ * @Date 2024/8/4
+ * @Version: 1.0
+ */
+@RestController
+@RequestMapping("/article")
+public class ArticleController {
+    @Autowired
+    private ArticleService articleService;
+
+    @GetMapping("/list")
+    public List<Article> list(){
+        return articleService.list();
+    }
+}

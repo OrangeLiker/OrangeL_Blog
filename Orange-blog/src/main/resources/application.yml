@@ -1,0 +1,21 @@
+server:
+  port: 7777
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/orange_blog?useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      logic-delete-field: delFlag
+      id-type: auto
