@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.orange.service.ArticleService;
-
+import org.orange.domain.response.ResponseResult;
 import java.util.List;
 
 /**
@@ -24,8 +24,15 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @GetMapping("/list")
-    public List<Article> list(){
-        return articleService.list();
+//    @GetMapping("/list")
+//    public List<Article> list(){
+//        return articleService.list();
+//    }
+    //热门文章查询
+    @GetMapping("/hotArticleList")
+    public ResponseResult hotArticleList(){
+        ResponseResult result=articleService.hotArticleList();
+        return result;
     }
+
 }
