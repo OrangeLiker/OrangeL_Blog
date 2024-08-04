@@ -10,10 +10,8 @@ import org.orange.domain.vo.HotArticleVo;
 import org.orange.mapper.ArticleMapper;
 import org.orange.service.ArticleService;
 import org.orange.utils.BeanCopyUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +23,7 @@ import java.util.List;
  * @Version: 1.0
  */
 @Service
-public class ArticleImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
+public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
     //热门文章查询
     @Override
     public ResponseResult hotArticleList() {

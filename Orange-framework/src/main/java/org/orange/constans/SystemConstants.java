@@ -13,7 +13,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SystemConstants {
     //文章是草稿
-    public static final String ARTICLE_STATUS_DRAFT = "1";
+    public static final int ARTICLE_STATUS_DRAFT = 1;
     //文章是发布
-    public static final String ARTICLE_STATUS_NORMAL = "0";
+    public static final int ARTICLE_STATUS_NORMAL = 0;
+    //分类状态正常
+    public static final String Category_STATUS_NORMAL = "0";
+    //分类状态删除
+    public static final String Category_STATUS_DELETE = "1";
 }
