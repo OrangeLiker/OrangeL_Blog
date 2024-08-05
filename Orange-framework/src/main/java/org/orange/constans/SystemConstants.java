@@ -20,4 +20,8 @@ public class SystemConstants {
     public static final String Category_STATUS_NORMAL = "0";
     //分类状态删除
     public static final String Category_STATUS_DELETE = "1";
+    //友情链接审核通过
+    public static final char LINK_STATUS_PASS = '0';
+    //友情链接审核未通过
+
 }
