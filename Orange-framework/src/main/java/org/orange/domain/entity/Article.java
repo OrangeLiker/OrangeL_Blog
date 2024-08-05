@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * 文章表
@@ -20,6 +21,7 @@ import lombok.Data;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("sg_article")
+@Accessors(chain = true)//链式调用
 public class Article {
     @TableId
     private Long id;

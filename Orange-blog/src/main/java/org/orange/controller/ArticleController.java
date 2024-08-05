@@ -36,4 +36,10 @@ public class ArticleController {
     public ResponseResult articleList(Long categoryId,Long pageNum,Long pageSize){
         return articleService.articleList(categoryId,pageNum,pageSize);
     }
+
+    //文章详情
+    @GetMapping("/{id}")
+    public ResponseResult getArticleDetail(@PathVariable("id") Long id){
+        return articleService.getArticleDetail(id);
+    }
 }

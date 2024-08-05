@@ -7,6 +7,7 @@ import org.orange.constans.SystemConstants;
 import org.orange.domain.entity.Article;
 import org.orange.domain.entity.Category;
 import org.orange.domain.response.ResponseResult;
+import org.orange.domain.vo.ArticleDetailVo;
 import org.orange.domain.vo.ArticleListVo;
 import org.orange.domain.vo.HotArticleVo;
 import org.orange.domain.vo.PageVo;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+
 
 /**
  * @BelongsProject: Orange_Blog
@@ -67,17 +70,38 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         //根据id查name
         List<Article> articles=page.getRecords();
-        //for循环遍历
-        for(Article article:articles){
-            Category category = categoryService.getById(article.getCategoryId());
-            article.setCategoryName(category.getName());
-        }
+//        for循环遍历
+//        for(Article article:articles){
+//            Category category = categoryService.getById(article.getCategoryId());
+//            article.setCategoryName(category.getName());
+//        }
+        //Stream流
+        articles.stream()
+                .map(article -> article.setCategoryName(categoryService.getById(article.getCategoryId()).getName()))
+                .collect(Collectors.toList());
+
         //封装查询结果
         List<ArticleListVo> articleListVos = BeanCopyUtils.copyBeanList(page.getRecords(), ArticleListVo.class);
 
         PageVo pageVo = new PageVo(articleListVos,page.getTotal());
 
         return ResponseResult.okResult(pageVo);
+    }
+
+    @Override
+    public ResponseResult getArticleDetail(Long id) {
+        //根据id查询文章
+        Article article=getById(id);
+        //转化成Vo
+        ArticleDetailVo articleDetailVo = BeanCopyUtils.copyBean(article, ArticleDetailVo.class);
+        //查询分类名
+        Long categoryId=articleDetailVo.getCategoryId();
+        Category category = categoryService.getById(categoryId);
+        if(category!=null){
+            articleDetailVo.setCategoryName(category.getName());
+        }
+        //封装响应对象
+        return ResponseResult.okResult(articleDetailVo);
     }
 
 }
