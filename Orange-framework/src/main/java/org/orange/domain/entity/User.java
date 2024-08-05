@@ -1,6 +1,8 @@
 package org.orange.domain.entity;
 import java.util.Date;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +28,7 @@ public class User {
     /**
      * 用户名
      */
+    @JsonAlias("username")
     private String userName;
     /**
      * 昵称
