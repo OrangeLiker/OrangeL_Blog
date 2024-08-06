@@ -22,6 +22,7 @@ public class SystemConstants {
     public static final String Category_STATUS_DELETE = "1";
     //友情链接审核通过
     public static final char LINK_STATUS_PASS = '0';
-    //友情链接审核未通过
+    //根评论
+    public static final Long ROOT_COMMENT = -1L;
 
 }
