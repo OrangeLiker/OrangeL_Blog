@@ -24,5 +24,9 @@ public class SystemConstants {
     public static final char LINK_STATUS_PASS = '0';
     //根评论
     public static final Long ROOT_COMMENT = -1L;
+    //文章评论
+    public static final String COMMENT_TYPE_ARTICLE = "0";
+    //友链评论
+    public static final String COMMENT_TYPE_LINK = "1";
 
 }

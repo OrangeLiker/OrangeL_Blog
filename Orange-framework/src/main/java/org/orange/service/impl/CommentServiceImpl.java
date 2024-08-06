@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.orange.constans.SystemConstants;
 import org.orange.domain.entity.Comment;
-import org.orange.domain.entity.User;
 import org.orange.domain.enums.AppHttpCodeEnum;
 import org.orange.domain.response.ResponseResult;
 import org.orange.domain.vo.CommentVo;
@@ -15,12 +14,10 @@ import org.orange.mapper.CommentMapper;
 import org.orange.service.CommentService;
 import org.orange.service.UserService;
 import org.orange.utils.BeanCopyUtils;
-import org.orange.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,12 +35,15 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     @Autowired
     private CommentService commentService;
     @Override
-    public ResponseResult getCommentList(Long articleId, Integer pageNum, Integer pageSize) {
+    public ResponseResult getCommentList(String commentType, Long articleId, Integer pageNum, Integer pageSize) {
         //查询对应文章的根评论
         LambdaQueryWrapper<Comment> queryWrapper=new LambdaQueryWrapper();//只有在后边加上对应泛型，才能在eq方法中传入对应的字段
-        queryWrapper.eq(Comment::getArticleId,articleId);
+        //只有当commentType=0时，才会有articleId
+        queryWrapper.eq(SystemConstants.COMMENT_TYPE_ARTICLE.equals(commentType),Comment::getArticleId,articleId);
         //根评论id=-1
         queryWrapper.eq(Comment::getRootId, SystemConstants.ROOT_COMMENT);
+        //评论类型判断
+        queryWrapper.eq(Comment::getType,commentType);
         //分页查询
         Page<Comment> page=new Page<>(pageNum,pageSize);
         page(page,queryWrapper);
