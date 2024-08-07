@@ -24,8 +24,8 @@ import java.util.UUID;
 public class OssUtils {
 
     private static final String endpoint = "oss-cn-beijing.aliyuncs.com";
-    private static final String accessKeyId = "LTAI5tFxFDP3RMvGa9iYZtz7";
-    private static final String accessKeySecret = "Ylofh4WURkWJZWXoDMiW2sWySWVEoo";
+    private static final String accessKeyId = System.getenv("ALIBABA_CLOUD_ACCESS_KEY_ID");
+    private static final String accessKeySecret = System.getenv("ALIBABA_CLOUD_ACCESS_KEY_SECRET");
     private static final String bucketName = "study-note908";
 
     public String uploadFile(MultipartFile multipartFile) throws IOException {
