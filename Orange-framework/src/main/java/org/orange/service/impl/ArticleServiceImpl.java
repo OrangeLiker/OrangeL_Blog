@@ -15,6 +15,7 @@ import org.orange.mapper.ArticleMapper;
 import org.orange.service.ArticleService;
 import org.orange.service.CategoryService;
 import org.orange.utils.BeanCopyUtils;
+import org.orange.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private RedisCache redisCache;
     //热门文章查询
     @Override
     public ResponseResult hotArticleList() {
@@ -43,6 +47,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         //必须已发布
         queryWrapper.eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL);
         //按照浏览量排序
+        //TODO 从redis中查询浏览量排序
         queryWrapper.orderByDesc(Article::getViewCount);
         //只查询前10条
         Page <Article> page=new Page<>(1,10);
@@ -92,6 +97,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResponseResult getArticleDetail(Long id) {
         //根据id查询文章
         Article article=getById(id);
+        //从redis中查询viewCount
+        Integer redisViewCount = redisCache.getCacheMapValue(SystemConstants.ARTICLE_VIEW_COUNT, id.toString());
+        article.setViewCount(redisViewCount.longValue());
         //转化成Vo
         ArticleDetailVo articleDetailVo = BeanCopyUtils.copyBean(article, ArticleDetailVo.class);
         //查询分类名
@@ -102,6 +110,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
         //封装响应对象
         return ResponseResult.okResult(articleDetailVo);
+    }
+
+    @Override
+    public ResponseResult updateViewCount(Long id) {
+        redisCache.incrementViewCount(SystemConstants.ARTICLE_VIEW_COUNT,id.toString(),1);
+        return ResponseResult.okResult();
     }
 
 }

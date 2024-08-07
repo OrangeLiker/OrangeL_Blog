@@ -201,6 +201,10 @@ public class RedisCache
         return opsForHash.get(key, hKey);
     }
 
+    public void incrementViewCount(String key,String hkey,int value){
+         redisTemplate.opsForHash().increment(key,hkey,value);
+    }
+
     /**
      * 删除Hash中的数据
      * 

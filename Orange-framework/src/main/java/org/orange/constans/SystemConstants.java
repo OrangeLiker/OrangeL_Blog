@@ -28,5 +28,7 @@ public class SystemConstants {
     public static final String COMMENT_TYPE_ARTICLE = "0";
     //友链评论
     public static final String COMMENT_TYPE_LINK = "1";
+    //articleRedisKey
+    public static final String ARTICLE_VIEW_COUNT = "ArticleViewCount";
 
 }
