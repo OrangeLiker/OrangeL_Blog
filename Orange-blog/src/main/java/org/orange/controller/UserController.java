@@ -4,6 +4,7 @@ import org.orange.domain.entity.User;
 import org.orange.domain.response.ResponseResult;
 import org.orange.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/user")
+@Validated
 public class UserController {
     @Autowired
     private UserService userService;
@@ -28,5 +30,10 @@ public class UserController {
     @PutMapping("/userInfo")
     public ResponseResult updateUserInfo(@RequestBody User user){
         return userService.updateUserInfo(user);
+    }
+
+    @PostMapping("/register")
+    public ResponseResult register(@Validated @RequestBody User user){
+        return userService.register(user);
     }
 }
