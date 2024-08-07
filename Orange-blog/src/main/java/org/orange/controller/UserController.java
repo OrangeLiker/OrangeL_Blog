@@ -1,11 +1,10 @@
 package org.orange.controller;
 
+import org.orange.domain.entity.User;
 import org.orange.domain.response.ResponseResult;
 import org.orange.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @BelongsProject: Orange_Blog
@@ -24,5 +23,10 @@ public class UserController {
     @GetMapping("/userInfo")
     public ResponseResult userInfo(){
         return userService.userInfo();
+    }
+
+    @PutMapping("/userInfo")
+    public ResponseResult updateUserInfo(@RequestBody User user){
+        return userService.updateUserInfo(user);
     }
 }

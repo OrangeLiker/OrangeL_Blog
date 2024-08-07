@@ -7,4 +7,6 @@ import org.orange.domain.response.ResponseResult;
 public interface UserService extends IService<User> {
 
     ResponseResult userInfo();
+
+    ResponseResult updateUserInfo(User user);
 }
