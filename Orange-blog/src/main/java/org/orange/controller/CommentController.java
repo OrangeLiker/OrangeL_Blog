@@ -1,5 +1,6 @@
 package org.orange.controller;
 
+import org.orange.annotation.SystemLog;
 import org.orange.constans.SystemConstants;
 import org.orange.domain.entity.Comment;
 import org.orange.domain.response.ResponseResult;
@@ -22,17 +23,20 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
     @GetMapping("/commentList")
+    @SystemLog(businessName = "查询文章评论")
     public ResponseResult commentList(Long articleId,Integer pageNum,Integer pageSize){
         return commentService.getCommentList(SystemConstants.COMMENT_TYPE_ARTICLE,articleId,pageNum,pageSize);
     }
     //发布文章评论
     @PostMapping
+    @SystemLog(businessName = "发布文章评论")
     public ResponseResult addComment(@RequestBody Comment comment){//前端传过来的comment，正常来说是需要新建一个DTO用来接收的
         return commentService.addComment(comment);
     }
 
     //友链评论
     @GetMapping("/linkCommentList")
+    @SystemLog(businessName = "查询友链评论")
     public ResponseResult linkCommentList(Integer pageNum,Integer pageSize){
         return commentService.getCommentList(SystemConstants.COMMENT_TYPE_LINK,null,pageNum,pageSize);
     }

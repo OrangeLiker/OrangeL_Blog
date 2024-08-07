@@ -1,5 +1,6 @@
 package org.orange.controller;
 
+import org.orange.annotation.SystemLog;
 import org.orange.domain.response.ResponseResult;
 import org.orange.service.BlogLogoutService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class BlogLogoutController {
     @Autowired
     private BlogLogoutService logoutService;
     @PostMapping("/logout")
+    @SystemLog(businessName = "退出登录")
     public ResponseResult logout(){
         return logoutService.logout();
     }

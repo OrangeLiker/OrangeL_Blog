@@ -1,5 +1,6 @@
 package org.orange.controller;
 
+import org.orange.annotation.SystemLog;
 import org.orange.domain.entity.User;
 import org.orange.domain.enums.AppHttpCodeEnum;
 import org.orange.domain.response.ResponseResult;
@@ -25,6 +26,7 @@ public class BlogLoginController {
     private BlogLoginService loginService;
 
     @PostMapping("/login")
+    @SystemLog(businessName = "用户登录")
     public ResponseResult login(@RequestBody User user){
         if(!StringUtils.hasText(user.getUserName())){
             //抛出自定义异常，由异常处理统一返回

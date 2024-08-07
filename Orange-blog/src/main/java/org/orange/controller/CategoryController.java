@@ -1,5 +1,6 @@
 package org.orange.controller;
 
+import org.orange.annotation.SystemLog;
 import org.orange.domain.entity.Category;
 import org.orange.domain.response.ResponseResult;
 import org.orange.service.CategoryService;
@@ -25,6 +26,7 @@ public class CategoryController {
     private CategoryService categoryService;
     //查询条件：只展示有正式文章发布的分类，必须是正常状态的分类，分表查询
     @GetMapping("/getCategoryList")
+    @SystemLog(businessName = "查询分类列表")
     public ResponseResult list(){
          return categoryService.getCategoryList();
     }

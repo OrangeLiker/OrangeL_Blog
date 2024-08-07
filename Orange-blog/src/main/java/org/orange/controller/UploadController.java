@@ -1,5 +1,6 @@
 package org.orange.controller;
 
+import org.orange.annotation.SystemLog;
 import org.orange.domain.enums.AppHttpCodeEnum;
 import org.orange.domain.response.ResponseResult;
 import org.orange.service.UploadService;
@@ -27,6 +28,7 @@ public class UploadController {
     private UploadService uploadService;
 
     @PostMapping("/upload")
+    @SystemLog(businessName = "上传文件")
     public ResponseResult uploadFile(@RequestParam("img") MultipartFile file) throws IOException {
         if(file==null){
             return ResponseResult.errorResult(AppHttpCodeEnum.FILE_NOTEMPTY,"文件不能为空");

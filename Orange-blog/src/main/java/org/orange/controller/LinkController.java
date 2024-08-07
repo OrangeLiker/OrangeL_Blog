@@ -1,5 +1,6 @@
 package org.orange.controller;
 
+import org.orange.annotation.SystemLog;
 import org.orange.domain.response.ResponseResult;
 import org.orange.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class LinkController {
     @Resource
     private LinkService linkService;
     @GetMapping("/getAllLink")
+    @SystemLog(businessName = "查询所有友情链接")
     public ResponseResult getAllLink(){
         return linkService.getAllLink();
     }
