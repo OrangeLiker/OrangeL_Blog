@@ -45,17 +45,16 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         //评论类型判断
         queryWrapper.eq(Comment::getType,commentType);
         //分页查询
-        Page<Comment> page=new Page<>(pageNum,pageSize);
+        Page<Comment> page=new Page(pageNum,pageSize);
         page(page,queryWrapper);
 
         //封装成PageVo
         List<CommentVo> commentVoList= toCommentVoList(page.getRecords());
-        //补充遗漏字段，如所回复用户名，评论者用户名
-        PageVo pageVo=new PageVo(commentVoList,page.getTotal());
         //查询所有根评论的子评论赋值给children
         for (CommentVo commentVo : commentVoList) {
             commentVo.setChildren(getChildren(commentVo.getId()));
         }
+        PageVo pageVo=new PageVo(commentVoList,page.getTotal());
         return ResponseResult.okResult(pageVo);
     }
     //添加评论
