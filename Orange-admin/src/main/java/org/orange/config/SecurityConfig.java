@@ -51,7 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/user/userInfo").authenticated()
 //                .antMatchers(("/upload")).authenticated()
 // 除上面外的所有请求全部不需要认证即可访问
-                .anyRequest().permitAll();
+                .antMatchers("/user/login").anonymous()
+                .anyRequest().authenticated();
         http.logout().disable();
 
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
