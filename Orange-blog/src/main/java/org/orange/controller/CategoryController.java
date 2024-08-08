@@ -1,5 +1,7 @@
 package org.orange.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.orange.annotation.SystemLog;
 import org.orange.domain.entity.Category;
 import org.orange.domain.response.ResponseResult;
@@ -21,12 +23,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/category")
+@Api(tags = "文章分类分类模块",description = "文章分类分类模块相关接口")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
     //查询条件：只展示有正式文章发布的分类，必须是正常状态的分类，分表查询
     @GetMapping("/getCategoryList")
     @SystemLog(businessName = "查询分类列表")
+    @ApiOperation(value = "查询分类列表")
     public ResponseResult list(){
          return categoryService.getCategoryList();
     }

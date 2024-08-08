@@ -1,5 +1,7 @@
 package org.orange.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.orange.annotation.SystemLog;
 import org.orange.domain.entity.User;
 import org.orange.domain.enums.AppHttpCodeEnum;
@@ -21,12 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version: 1.0
  */
 @RestController
+@Api(tags = "登录模块",description = "登录模块相关接口")
 public class BlogLoginController {
     @Autowired
     private BlogLoginService loginService;
 
     @PostMapping("/login")
     @SystemLog(businessName = "用户登录")
+    @ApiOperation("用户登录")
     public ResponseResult login(@RequestBody User user){
         if(!StringUtils.hasText(user.getUserName())){
             //抛出自定义异常，由异常处理统一返回

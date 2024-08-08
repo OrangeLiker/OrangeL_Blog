@@ -1,5 +1,7 @@
 package org.orange.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.orange.annotation.SystemLog;
 import org.orange.domain.response.ResponseResult;
 import org.orange.service.LinkService;
@@ -20,11 +22,13 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/link")
+@Api(tags = "友情链接模块",description = "友情链接模块相关接口")
 public class LinkController {
     @Resource
     private LinkService linkService;
     @GetMapping("/getAllLink")
     @SystemLog(businessName = "查询所有友情链接")
+    @ApiOperation("查询所有友情链接")
     public ResponseResult getAllLink(){
         return linkService.getAllLink();
     }
