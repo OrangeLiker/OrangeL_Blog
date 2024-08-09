@@ -34,4 +34,9 @@ public class SecurityUtils
     public static Long getUserId() {
         return getLoginUser().getUser().getId();
     }
+
+    public static Boolean adminOrUser(Long id){
+        String type=getLoginUser().getUser().getType();
+        return id!=null && type.equals("1");
+    }
 }

@@ -1,10 +1,14 @@
 package org.orange.domain.entity;
 import java.util.Date;
+import java.util.List;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.experimental.Accessors;
+
 /**
  * 菜单权限表(SysMenu)表实体类
  *
@@ -16,6 +20,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("sys_menu")
+@Accessors(chain = true)
 public class Menu {
 
     /**
@@ -123,6 +128,9 @@ public class Menu {
          
  
     private String delFlag;
+
+    @TableField(exist = false)//表示该属性不为数据库表字段，但又是必须使用的
+    private List<Menu> children;
 
 }
 

@@ -1,10 +1,12 @@
 package org.orange.controller;
 
 import org.orange.domain.entity.LoginUser;
+import org.orange.domain.entity.Menu;
 import org.orange.domain.entity.User;
 import org.orange.domain.enums.AppHttpCodeEnum;
 import org.orange.domain.response.ResponseResult;
 import org.orange.domain.vo.AdminUserInfoVo;
+import org.orange.domain.vo.RoutersVo;
 import org.orange.domain.vo.UserInfoVo;
 import org.orange.exception.SystemException;
 import org.orange.service.AdminLoginService;
@@ -63,5 +65,15 @@ public class AdminLoginController {
         //封装
        AdminUserInfoVo adminUserInfoVo=new AdminUserInfoVo(perms,role, BeanCopyUtils.copyBean(loginUser.getUser(), UserInfoVo.class));
         return ResponseResult.okResult(adminUserInfoVo);
+    }
+
+    //getRouters
+    @GetMapping("/getRouters")
+    public ResponseResult<RoutersVo> getRouters(){
+        Long userId = SecurityUtils.getUserId();
+        //查询menu，以树形结构返回
+        List<Menu> menus=menuService.selectRouterMenuTreeByUserId(userId);
+        //封装返回
+        return ResponseResult.okResult(new RoutersVo(menus));
     }
 }

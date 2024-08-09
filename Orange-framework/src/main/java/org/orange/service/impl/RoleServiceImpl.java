@@ -33,7 +33,6 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     private UserRoleMapper userRoleMapper;
     @Override
     public List<String> selectRoleKeyByUserId(Long id) {
-        String type=userMapper.selectById(id).getType();
         List<String> roleKeys=new ArrayList<>();
         //判断是否是管理员，如果是管理员，集合直接返回admin
 //        if(id==7L){
@@ -48,8 +47,5 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
             roleKeys.add(role.getRoleKey());
         });
         return roleKeys;
-    }
-    public Boolean adminOrUser(String type){
-        return type.equals("1");
     }
 }
