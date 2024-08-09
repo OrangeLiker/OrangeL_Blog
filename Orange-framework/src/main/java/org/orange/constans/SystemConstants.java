@@ -30,5 +30,8 @@ public class SystemConstants {
     public static final String COMMENT_TYPE_LINK = "1";
     //articleRedisKey
     public static final String ARTICLE_VIEW_COUNT = "ArticleViewCount";
+    public static final String MENU="C";
+    public static final String BUTTON="F";
+    public static final String STATUS_NORMAL="0";
 
 }
