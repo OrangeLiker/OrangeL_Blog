@@ -13,7 +13,8 @@ public enum AppHttpCodeEnum {
     LOGIN_ERROR(505,"用户名或密码错误"),
     CONTENT_NOTNULL(508,"评论内容不可为空"),
     FILE_NOTEMPTY(509,"文件不能为空"),
-    FILE_TYPE_ERROR(510,"文件类型错误");
+    FILE_TYPE_ERROR(510,"文件类型错误"),
+    ROLES_NOT_EMPTY(511,"角色不能为空");
     int code;
     String msg;
     AppHttpCodeEnum(int code, String errorMessage){

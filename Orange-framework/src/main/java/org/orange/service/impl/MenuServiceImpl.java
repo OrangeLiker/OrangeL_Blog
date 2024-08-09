@@ -7,6 +7,8 @@ import org.orange.domain.entity.Menu;
 import org.orange.domain.entity.RoleMenu;
 import org.orange.domain.entity.User;
 import org.orange.domain.entity.UserRole;
+import org.orange.domain.enums.AppHttpCodeEnum;
+import org.orange.exception.SystemException;
 import org.orange.mapper.MenuMapper;
 import org.orange.mapper.RoleMenuMapper;
 import org.orange.mapper.UserMapper;
@@ -40,39 +42,35 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     public List<String> selectPermsByUserId(Long id) {
         String type = userMapper.selectById(id).getType();
-        System.out.println(type);
+        List<String> perms=new ArrayList<>();
         //管理员返回所有权限
-         if(id==7L){//管理员
+         if(adminOrUser(type)){//管理员
              LambdaQueryWrapper<Menu> queryWrapper=new LambdaQueryWrapper();
              queryWrapper.in(Menu::getMenuType, SystemConstants.MENU, SystemConstants.BUTTON);
              queryWrapper.eq(Menu::getStatus,SystemConstants.STATUS_NORMAL);
              List<Menu> menus = list(queryWrapper);
-             List <String> perms=menus.stream().map(Menu::getPerms).collect(Collectors.toList());
-             return perms;
+             perms=menus.stream().map(Menu::getPerms).collect(Collectors.toList());
+         }else{
+             //用户返回对应权限,三表联查，根据用户id查询对应的roleid，根据roleid查询对应的menuid，根据menuid查询对应的perms
+             LambdaQueryWrapper<UserRole> queryWrapper=new LambdaQueryWrapper<>();
+             queryWrapper.eq(UserRole::getUserId,id);
+             List<UserRole> userRoles=userRoleMapper.selectList(queryWrapper);
+             List<Long> roleIdList=userRoles.stream().map(UserRole::getRoleId).collect(Collectors.toList());
+             LambdaQueryWrapper<RoleMenu> lambdaQueryWrapper=new LambdaQueryWrapper<>();
+             lambdaQueryWrapper.in(RoleMenu::getRoleId,roleIdList);
+             List<RoleMenu> roleMenus=roleMenuMapper.selectList(lambdaQueryWrapper);
+             List<Long> menuIdList=roleMenus.stream().map(RoleMenu::getMenuId).collect(Collectors.toList());
+             LambdaQueryWrapper<Menu> menuLambdaQueryWrapper=new LambdaQueryWrapper<>();
+             menuLambdaQueryWrapper.in(Menu::getId,menuIdList);
+             menuLambdaQueryWrapper.in(Menu::getMenuType,SystemConstants.MENU,SystemConstants.BUTTON);
+             menuLambdaQueryWrapper.eq(Menu::getStatus,SystemConstants.STATUS_NORMAL);
+             List<Menu> menus = list(menuLambdaQueryWrapper);
+             perms=menus.stream().map(Menu::getPerms).collect(Collectors.toList());
          }
-           //用户返回对应权限,三表联查，根据用户id查询对应的roleid，根据roleid查询对应的menuid，根据menuid查询对应的perms
-             Long roleId = userRoleMapper.selectById(id).getRoleId();
-             if(roleId==null){
-                 throw new RuntimeException("用户未分配角色");
-             }
-             LambdaQueryWrapper<RoleMenu> queryWrapper=new LambdaQueryWrapper<>();
-             queryWrapper.eq(RoleMenu::getRoleId,roleId);
-             List<RoleMenu> roleMenus = roleMenuMapper.selectList(queryWrapper);
-             List<String> perms=new ArrayList<>();
-             for (RoleMenu roleMenu : roleMenus) {
-                 LambdaQueryWrapper<Menu> queryWrapper1 = new LambdaQueryWrapper<>();
-                 queryWrapper1.eq(Menu::getId, roleMenu.getMenuId());
-                 queryWrapper1.eq(Menu::getStatus, SystemConstants.STATUS_NORMAL);
-                 List<Menu> menus = menuMapper.selectList(queryWrapper1);
-                 for (Menu menu : menus) {
-                     perms.add(menu.getPerms());
-                 }
-             }
-             return perms;
+         return perms;
     }
     //判断权限
     public Boolean adminOrUser(String type){
-
         return type.equals("1");
     }
 }

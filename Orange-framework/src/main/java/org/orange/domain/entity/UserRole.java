@@ -20,14 +20,12 @@ public class UserRole {
 
     /**
      * 用户ID
-     */     
- 
+     */
+    @TableId
     private Long userId;
-
     /**
      * 角色ID
-     */     
- 
+     */
     private Long roleId;
 
 }

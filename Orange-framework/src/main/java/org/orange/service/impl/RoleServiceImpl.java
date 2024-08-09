@@ -36,10 +36,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         String type=userMapper.selectById(id).getType();
         List<String> roleKeys=new ArrayList<>();
         //判断是否是管理员，如果是管理员，集合直接返回admin
-        if(id==7L){
-            roleKeys.add("admin");
-            return roleKeys;
-        }
+//        if(id==7L){
+//            roleKeys.add("admin");
+//            return roleKeys;
+//        }
         //否则查询用户所具有的角色信息
         LambdaQueryWrapper<UserRole> queryWrapper=new LambdaQueryWrapper();
         queryWrapper.eq(UserRole::getUserId,id);
