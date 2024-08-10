@@ -1,4 +1,7 @@
 package org.orange.domain.enums;
+
+import org.orange.domain.entity.Tag;
+
 public enum AppHttpCodeEnum {
     // 成功
     SUCCESS(200,"操作成功"),
@@ -14,7 +17,8 @@ public enum AppHttpCodeEnum {
     CONTENT_NOTNULL(508,"评论内容不可为空"),
     FILE_NOTEMPTY(509,"文件不能为空"),
     FILE_TYPE_ERROR(510,"文件类型错误"),
-    ROLES_NOT_EMPTY(511,"角色不能为空");
+    ROLES_NOT_EMPTY(511,"角色不能为空"),
+    TAG_NOT_FOUND(512,"标签不存在");
     int code;
     String msg;
     AppHttpCodeEnum(int code, String errorMessage){

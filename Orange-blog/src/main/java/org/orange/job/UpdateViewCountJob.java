@@ -30,7 +30,7 @@ public class UpdateViewCountJob {
     @Resource
     private ArticleService articleService;//IService中实现了很多批量操作的方法
     //定时任务的思想是通过注解@Scheduled来实现,这里的cron表达式是从0开始,每10秒执行一次
-    @Scheduled(cron = "0/5 * * * * ?")
+    @Scheduled(cron = "0/600 * * * * ?")//每10分钟执行一次
     public void testJob(){
         //获取redis中浏览量
         Map<String, Integer> viewCountMap = redisCache.getCacheMap(SystemConstants.ARTICLE_VIEW_COUNT);

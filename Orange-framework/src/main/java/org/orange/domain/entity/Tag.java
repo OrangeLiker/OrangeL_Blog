@@ -1,6 +1,5 @@
 package org.orange.domain.entity;
 import java.util.Date;
-import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
