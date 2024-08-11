@@ -13,6 +13,7 @@ import org.orange.service.CategoryService;
 import org.orange.utils.BeanCopyUtils;
 import org.orange.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -59,6 +60,7 @@ public class CategoryController {
         return categoryService.deleteCategory(id);
     }
     //导出分类
+    @PreAuthorize("@ps.hasPermission('contnet:category:export')")//权限控制,通过自定义判断条件判断用户是否具有操作功能
     @GetMapping("/export")
     public void exportCategory(HttpServletResponse response){
         try {

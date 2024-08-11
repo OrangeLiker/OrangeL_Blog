@@ -1,9 +1,12 @@
 package org.orange.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import org.orange.constans.SystemConstants;
 import org.orange.domain.entity.LoginUser;
 import org.orange.domain.entity.User;
+import org.orange.mapper.MenuMapper;
 import org.orange.mapper.UserMapper;
+import org.orange.service.MenuService;
 import org.orange.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.print.attribute.standard.PageRanges;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -25,6 +30,8 @@ import java.util.Objects;
 public class UserDetailsImpl implements UserDetailsService {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private MenuService menuService;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //根据用户名查询用户
@@ -35,9 +42,12 @@ public class UserDetailsImpl implements UserDetailsService {
         if(Objects.isNull(user)){
             throw new UsernameNotFoundException("用户名不存在");
         }
-        //TODO 查询用户权限
-
+        //TODO 查询用户权限 只有后台用户才需要查询权限
+        if(SystemConstants.ADMIN.equals(user.getType())){
+            List<String> menus = menuService.selectPermsByUserId(user.getId());
+            return new LoginUser(user,menus);
+        }
         //用封装的LoginUser接收返回
-        return new LoginUser(user);
+        return new LoginUser(user,null);
     }
 }
