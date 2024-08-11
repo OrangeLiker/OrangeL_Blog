@@ -7,4 +7,6 @@ import org.orange.domain.response.ResponseResult;
 public interface CategoryService extends IService<Category> {
 
     ResponseResult getCategoryList();
+
+    ResponseResult getAllCategory();
 }

@@ -1,5 +1,8 @@
 package org.orange.domain.entity;
 import java.io.Serializable;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.ToStringSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,8 +23,8 @@ public class ArticleTag {
 
     /**
      * 文章id
-     */     
- 
+     */
+    @JSONField(serializeUsing= ToStringSerializer.class)
     private Long articleId;
 
     /**

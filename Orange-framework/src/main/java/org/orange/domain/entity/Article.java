@@ -3,6 +3,9 @@ package org.orange.domain.entity;
 import java.util.Date;
 import java.io.Serializable;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.ToStringSerializer;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -24,6 +27,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)//链式调用
 public class Article {
     @TableId
+    @JSONField(serializeUsing= ToStringSerializer.class)
     private Long id;
 
     /**
@@ -73,16 +77,15 @@ public class Article {
      */     
     private String isComment;
 
-         
+
     private Long createBy;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+
     private Date createTime;
 
-         
     private Long updateBy;
 
-         
     private Date updateTime;
 
     /**

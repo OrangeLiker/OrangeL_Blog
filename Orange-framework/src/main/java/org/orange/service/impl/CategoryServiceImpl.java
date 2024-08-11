@@ -31,6 +31,8 @@ import java.util.stream.Collectors;
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private CategoryMapper categoryMapper;
     @Override
     public ResponseResult getCategoryList() {
         //查询文章表，状态为已发布的文章
@@ -47,6 +49,16 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
                 .filter(category -> category.getStatus().equals(SystemConstants.Category_STATUS_NORMAL))
                 .collect(Collectors.toList());
         //封装Vo
+        List<CategoryVo> categoryVos = BeanCopyUtils.copyBeanList(categories, CategoryVo.class);
+        return ResponseResult.okResult(categoryVos);
+    }
+
+    @Override
+    public ResponseResult getAllCategory() {
+        LambdaQueryWrapper<Category> queryWrapper=new LambdaQueryWrapper();
+        queryWrapper.eq(Category::getStatus,SystemConstants.Category_STATUS_NORMAL);
+        queryWrapper.eq(Category::getDelFlag,SystemConstants.Category_STATUS_NORMAL);
+        List<Category> categories = categoryMapper.selectList(queryWrapper);
         List<CategoryVo> categoryVos = BeanCopyUtils.copyBeanList(categories, CategoryVo.class);
         return ResponseResult.okResult(categoryVos);
     }

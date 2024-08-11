@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.orange.constans.SystemConstants;
+import org.orange.domain.dto.ArticleDto;
 import org.orange.domain.entity.Article;
+import org.orange.domain.entity.ArticleTag;
 import org.orange.domain.entity.Category;
 import org.orange.domain.response.ResponseResult;
 import org.orange.domain.vo.ArticleDetailVo;
@@ -13,12 +15,16 @@ import org.orange.domain.vo.HotArticleVo;
 import org.orange.domain.vo.PageVo;
 import org.orange.mapper.ArticleMapper;
 import org.orange.service.ArticleService;
+import org.orange.service.ArticleTagService;
 import org.orange.service.CategoryService;
 import org.orange.utils.BeanCopyUtils;
 import org.orange.utils.RedisCache;
+import org.orange.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -40,6 +46,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Autowired
     private RedisCache redisCache;
+    @Autowired
+    private ArticleTagService articleTagService;
     //热门文章查询
     @Override
     public ResponseResult hotArticleList() {
@@ -47,7 +55,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         //必须已发布
         queryWrapper.eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL);
         //按照浏览量排序
-        //TODO 从redis中查询浏览量排序
+        //在Redis中存储了浏览量，所以直接查询数据库即可
+
         queryWrapper.orderByDesc(Article::getViewCount);
         //只查询前10条
         Page <Article> page=new Page<>(1,10);
@@ -95,8 +104,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public ResponseResult getArticleDetail(Long id) {
+        System.out.println(id);
         //根据id查询文章
         Article article=getById(id);
+        System.out.println(article);
         //从redis中查询viewCount
         Integer redisViewCount = redisCache.getCacheMapValue(SystemConstants.ARTICLE_VIEW_COUNT, id.toString());
         article.setViewCount(redisViewCount.longValue());
@@ -115,6 +126,24 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public ResponseResult updateViewCount(Long id) {
         redisCache.incrementViewCount(SystemConstants.ARTICLE_VIEW_COUNT,id.toString(),1);
+        return ResponseResult.okResult();
+    }
+    //增加文章
+    @Override
+    @Transactional //开启声明式事务，保证数据的一致性
+    public ResponseResult addArticle(ArticleDto articleDto) {
+        Article article = BeanCopyUtils.copyBean(articleDto, Article.class);
+        article.setCreateBy(SecurityUtils.getUserId());
+        article.setCreateTime(new Date());
+        article.setUpdateBy(SecurityUtils.getUserId());
+        article.setUpdateTime(new Date());
+        save(article);
+
+        List<ArticleTag> articleTags =articleDto.getTags().stream()
+                .map(tagId ->new ArticleTag(article.getId(), tagId))
+                .collect(Collectors.toList());
+        //添加博客和标签关联
+        articleTagService.saveBatch(articleTags);
         return ResponseResult.okResult();
     }
 
