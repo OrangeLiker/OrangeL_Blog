@@ -18,8 +18,9 @@ public class SystemConstants {
     public static final int ARTICLE_STATUS_NORMAL = 0;
     //分类状态正常
     public static final String Category_STATUS_NORMAL = "0";
-    //分类状态删除
-    public static final String Category_STATUS_DELETE = "1";
+    //分类状态正常
+    public static final int Category_STATUS_NOTDELETE = 0;
+    public static final int Category_STATUS_DELETE = 1;
     //友情链接审核通过
     public static final char LINK_STATUS_PASS = '0';
     //根评论

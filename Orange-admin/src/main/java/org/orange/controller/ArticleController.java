@@ -3,6 +3,7 @@ package org.orange.controller;
 import org.orange.domain.dto.ArticleDto;
 import org.orange.domain.enums.AppHttpCodeEnum;
 import org.orange.domain.response.ResponseResult;
+import org.orange.domain.vo.CategoryVo;
 import org.orange.mapper.CategoryMapper;
 import org.orange.service.ArticleService;
 import org.orange.service.CategoryService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @BelongsProject: Orange_Blog
@@ -35,7 +37,8 @@ public class ArticleController {
     //查询所有分类
     @GetMapping("/content/category/listAllCategory")
     public ResponseResult listAllCategory(){
-        return categoryService.getAllCategory();
+        List<CategoryVo> list=categoryService.getAllCategory();
+        return ResponseResult.okResult(list);
     }
     //查询所有标签
     @GetMapping("/content/tag/listAllTag")
