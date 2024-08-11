@@ -4,6 +4,7 @@ import org.orange.domain.dto.ArticleDto;
 import org.orange.domain.enums.AppHttpCodeEnum;
 import org.orange.domain.response.ResponseResult;
 import org.orange.domain.vo.CategoryVo;
+import org.orange.domain.vo.UpdateArticleVo;
 import org.orange.mapper.CategoryMapper;
 import org.orange.service.ArticleService;
 import org.orange.service.CategoryService;
@@ -26,25 +27,12 @@ import java.util.List;
  */
 @RestController
 public class ArticleController {
-    @Autowired
-    private CategoryService categoryService;
-    @Autowired
-    private TagService tagService;
+
     @Autowired
     private UploadService uploadService;
     @Autowired
     private ArticleService articleService;
-    //查询所有分类
-    @GetMapping("/content/category/listAllCategory")
-    public ResponseResult listAllCategory(){
-        List<CategoryVo> list=categoryService.getAllCategory();
-        return ResponseResult.okResult(list);
-    }
-    //查询所有标签
-    @GetMapping("/content/tag/listAllTag")
-    public ResponseResult listAllTag(){
-        return tagService.getAllTag();
-    }
+
     //上传图片
     @PostMapping("/upload")
     public ResponseResult uploadFile(@RequestParam("img") MultipartFile file) throws IOException {
@@ -57,5 +45,21 @@ public class ArticleController {
     @PostMapping("/content/article")
     public ResponseResult addArticle(@RequestBody ArticleDto articleDto){
         return articleService.addArticle(articleDto);
+    }
+
+    //查询文章
+    @GetMapping("content/article/list")
+    public ResponseResult getArticleList(Integer pageNum, Integer pageSize,ArticleDto articleDto){
+        return articleService.getArticleList(pageNum,pageSize,articleDto);
+    }
+    //获取修改文章信息
+    @GetMapping("content/article/{id}")
+    public ResponseResult getUpdateArticle(@PathVariable("id") Long id){
+        return articleService.getUpdateArticle(id);
+    }
+    //更新文章
+    @PutMapping("content/article")
+    public ResponseResult updateArticle(@RequestBody UpdateArticleVo updateArticleVo){
+        return articleService.updateArticle(updateArticleVo);
     }
 }

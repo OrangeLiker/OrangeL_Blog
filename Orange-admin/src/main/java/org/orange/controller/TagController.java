@@ -30,6 +30,11 @@ public class TagController {
 
         return tagService.getTagList(pageNum, pageSize, tagListDto);
     }
+    //查询所有标签
+    @GetMapping("/listAllTag")
+    public ResponseResult listAllTag(){
+        return tagService.getAllTag();
+    }
     //新增标签
     @PostMapping
     public ResponseResult addTag(@RequestBody TagListDto tagListDto){

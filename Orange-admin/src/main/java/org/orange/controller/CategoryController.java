@@ -39,6 +39,12 @@ public class CategoryController {
     public ResponseResult<PageVo> getList(Integer pageNum, Integer pageSize,CategoryDto categoryDto){
         return categoryService.getCategory(pageNum,pageSize,categoryDto);
     }
+    //查询所有分类
+    @GetMapping("/listAllCategory")
+    public ResponseResult listAllCategory(){
+        List<CategoryVo> list=categoryService.getAllCategory();
+        return ResponseResult.okResult(list);
+    }
     //新增分类
     @PostMapping
     public ResponseResult addCategory(@RequestBody Category category){
