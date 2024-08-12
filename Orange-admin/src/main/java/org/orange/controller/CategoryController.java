@@ -66,7 +66,6 @@ public class CategoryController {
         return categoryService.deleteCategory(id);
     }
     //导出分类
-    @PreAuthorize("@ps.hasPermission('contnet:category:export')")//权限控制,通过自定义判断条件判断用户是否具有操作功能
     @GetMapping("/export")
     public void exportCategory(HttpServletResponse response){
         try {

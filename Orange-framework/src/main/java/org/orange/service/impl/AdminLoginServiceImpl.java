@@ -41,6 +41,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword());
         //认证,实际上会调用UserDetailsService的认证方法，但是要从数据库查询，所以要实现UserDetailsService接口
         Authentication authenticate = authenticationManager.authenticate(token);//接收返回的认证对象
+        System.out.println(authenticate.getClass());
         if(Objects.isNull(authenticate)){
             throw new RuntimeException("用户名或密码错误！");
         }

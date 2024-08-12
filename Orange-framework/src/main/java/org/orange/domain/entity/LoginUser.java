@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,9 +21,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginUser implements UserDetails {
+public class LoginUser implements UserDetails, Serializable {
     private  User user;
-    private List<String> permission;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

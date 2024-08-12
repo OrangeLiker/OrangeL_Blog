@@ -42,12 +42,7 @@ public class UserDetailsImpl implements UserDetailsService {
         if(Objects.isNull(user)){
             throw new UsernameNotFoundException("用户名不存在");
         }
-        //TODO 查询用户权限 只有后台用户才需要查询权限
-        if(SystemConstants.ADMIN.equals(user.getType())){
-            List<String> menus = menuService.selectPermsByUserId(user.getId());
-            return new LoginUser(user,menus);
-        }
         //用封装的LoginUser接收返回
-        return new LoginUser(user,null);
+        return new LoginUser(user);
     }
 }
