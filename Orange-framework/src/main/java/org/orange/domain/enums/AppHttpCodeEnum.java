@@ -18,7 +18,9 @@ public enum AppHttpCodeEnum {
     FILE_NOTEMPTY(509,"文件不能为空"),
     FILE_TYPE_ERROR(510,"文件类型错误"),
     ROLES_NOT_EMPTY(511,"角色不能为空"),
-    TAG_NOT_FOUND(512,"标签不存在");
+    TAG_NOT_FOUND(512,"标签不存在"),
+    MENU_EXISTED(513,"菜单已存在"),
+    MENU_HAS_CHILD(514,"存在子菜单无法删除");
     int code;
     String msg;
     AppHttpCodeEnum(int code, String errorMessage){

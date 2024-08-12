@@ -131,6 +131,10 @@ public class Menu {
 
     @TableField(exist = false)//表示该属性不为数据库表字段，但又是必须使用的
     private List<Menu> children;
+    @TableField(exist = false)
+    private String label;
+    @TableField(exist = false)
+    private List<Long> checkedKeys;
 
 }
 

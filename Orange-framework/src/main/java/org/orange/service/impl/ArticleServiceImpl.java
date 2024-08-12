@@ -202,4 +202,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return ResponseResult.okResult();
     }
 
+    @Override
+    public ResponseResult deleteArticle(List<Long> id) {
+        List<Article> articles=articleMapper.selectBatchIds(id);
+        articles = articles.stream()
+                .map(article -> article.setDelFlag(SystemConstants.ARTICLE_STATUS_DELETE))
+                .collect(Collectors.toList());
+        for (Article article:articles){
+            articleMapper.updateById(article);
+            articleTagService.remove(new LambdaQueryWrapper<ArticleTag>().eq(ArticleTag::getArticleId,article.getId()));
+        }
+        return ResponseResult.okResult();
+    }
 }

@@ -62,4 +62,9 @@ public class ArticleController {
     public ResponseResult updateArticle(@RequestBody UpdateArticleVo updateArticleVo){
         return articleService.updateArticle(updateArticleVo);
     }
+    //删除文章，支持批量删除，同时要对tags表进行删除
+    @DeleteMapping("content/article/{id}")
+    public ResponseResult deleteArticle(@PathVariable("id") List<Long> id){
+        return articleService.deleteArticle(id);
+    }
 }

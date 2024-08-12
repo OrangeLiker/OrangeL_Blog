@@ -6,6 +6,8 @@ import org.orange.domain.entity.Article;
 import org.orange.domain.response.ResponseResult;
 import org.orange.domain.vo.UpdateArticleVo;
 
+import java.util.List;
+
 public interface ArticleService extends IService<Article> {
     ResponseResult hotArticleList();
 
@@ -22,4 +24,6 @@ public interface ArticleService extends IService<Article> {
     ResponseResult getUpdateArticle(Long id);
 
     ResponseResult updateArticle(UpdateArticleVo updateArticleVo);
+
+    ResponseResult deleteArticle(List<Long> id);
 }

@@ -16,6 +16,7 @@ public class SystemConstants {
     public static final String ARTICLE_STATUS_DRAFT = "1";
     //文章是发布
     public static final String ARTICLE_STATUS_NORMAL = "0";
+    public static final int ARTICLE_STATUS_DELETE = 1;
     //分类状态正常
     public static final String Category_STATUS_NORMAL = "0";
     //分类状态正常
@@ -34,7 +35,10 @@ public class SystemConstants {
     public static final String MENU="C";
     public static final String BUTTON="F";
     public static final String STATUS_NORMAL="0";
-    public static final String USER="0";
-    public static final String ADMIN="1";
+
+    public static final String MENU_DELETE="1";
+    public static final String MENU_NORMAL="0";
+    public static final String DEL="1";
+    public static final String NORMAL="0";
 
 }
