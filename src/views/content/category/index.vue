@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import { listCategory, getCategory, delCategory, addCategory, updateCategory, exportCategory } from '@/api/content/category'
+import { listCategory, getCategory, delCategory, addCategory, updateCategory, exportCategory, changeStatus} from '@/api/content/category'
 
 export default {
   name: 'Category',
@@ -253,6 +253,21 @@ export default {
             })
           }
         }
+      })
+    },
+    /** 状态切换 */
+    handleStatusChange(row) {
+      const text = row.status === '0' ? '启用' : '禁用'
+      this.$modal
+      .confirm('确认要' + text + '""' + row.name + '"分类吗？')
+      .then(function() {
+        return changeStatus(row.id, row.status)
+      })
+      .then(() => {
+        this.$modal.msgSuccess(text + '成功')
+      })
+      .catch(function() {
+        row.status = row.status === '0' ? '1' : '0'
       })
     },
     /** 删除按钮操作 */

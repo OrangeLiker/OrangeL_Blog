@@ -58,3 +58,16 @@ export function exportCategory() {
     method: 'get'
   })
 }
+
+// 修改状态
+export function changeStatus(categoryId, status) {
+  const data = {
+    categoryId,
+    status
+  }
+  return request({
+    url: '/content/category/changeStatus',
+    method: 'put',
+    data: data
+  })
+}
