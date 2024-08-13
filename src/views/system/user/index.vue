@@ -67,6 +67,7 @@
               plain
               icon="el-icon-delete"
               size="mini"
+              :disabled="multiple"
               @click="handleDelete"
             >删除</el-button>
           </el-col>
@@ -215,7 +216,7 @@
         <el-row>
           <el-col :span="24">
             <el-form-item label="角色">
-              <el-select v-model="form.roleIds" multiple placeholder="请选择">
+              <el-select v-model="form.roleIds" multiple placeholder="请选择" @change="$forceUpdate()">
                 <el-option
                   v-for="item in roleOptions"
                   :key="item.id"
@@ -283,9 +284,10 @@ export default {
         password: [
           { required: true, message: '用户密码不能为空', trigger: 'blur' },
           {
-            min: 5,
-            max: 20,
-            message: '用户密码长度必须介于 5 和 20 之间',
+            min: 6,
+            max: 16,
+            pattern: /^[a-zA-Z0-9_]{6,16}$/,
+            message: '用户密码长度必须介于 6 和 16 之间',
             trigger: 'blur'
           }
         ],
