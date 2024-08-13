@@ -2,6 +2,7 @@ package org.orange.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.orange.domain.dto.CategoryDto;
+import org.orange.domain.dto.StatusDto;
 import org.orange.domain.entity.Category;
 import org.orange.domain.response.ResponseResult;
 import org.orange.domain.vo.CategoryVo;
@@ -25,4 +26,5 @@ public interface CategoryService extends IService<Category> {
 
     ResponseResult deleteCategory(List<Long> id);
 
+    ResponseResult changeStatus(StatusDto statusDto);
 }

@@ -18,5 +18,6 @@ import lombok.NoArgsConstructor;
 public class StatusDto {
     private Long userId;
     private Long roleId;
+    private Long categoryId;
     private String status;
 }

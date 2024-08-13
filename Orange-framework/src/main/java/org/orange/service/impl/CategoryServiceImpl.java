@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.orange.constans.SystemConstants;
 import org.orange.domain.dto.CategoryDto;
+import org.orange.domain.dto.StatusDto;
 import org.orange.domain.entity.Article;
 import org.orange.domain.entity.Category;
 import org.orange.domain.response.ResponseResult;
@@ -74,11 +75,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         if(categoryDto.getName()!=null && !categoryDto.getName().trim().isEmpty()){
             queryWrapper.like(Category::getName,categoryDto.getName());
         }
-        if(categoryDto.getStatus()!=null){
+        if(categoryDto.getStatus()!=null&&!"".equals(categoryDto.getStatus())){
             queryWrapper.eq(Category::getStatus,categoryDto.getStatus());
         }
         queryWrapper.eq(Category::getDelFlag,SystemConstants.Category_STATUS_NORMAL);
-        queryWrapper.eq(Category::getStatus,SystemConstants.Category_STATUS_NORMAL);
+//        queryWrapper.eq(Category::getStatus,SystemConstants.Category_STATUS_NORMAL);
         Page<Category> page=new Page<>();
         page.setCurrent(pageNum);
         page.setSize(pageSize);
@@ -122,6 +123,16 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             category.setUpdateTime(new Date());
             categoryMapper.updateById(category);
         }
+        return ResponseResult.okResult();
+    }
+
+    @Override
+    public ResponseResult changeStatus(StatusDto statusDto) {
+        Category category = getById(statusDto.getCategoryId());
+        category.setStatus(statusDto.getStatus());
+        category.setUpdateBy(SecurityUtils.getUserId());
+        category.setUpdateTime(new Date());
+        categoryMapper.updateById(category);
         return ResponseResult.okResult();
     }
 

@@ -3,6 +3,7 @@ package org.orange.controller;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson.JSON;
 import org.orange.domain.dto.CategoryDto;
+import org.orange.domain.dto.StatusDto;
 import org.orange.domain.entity.Category;
 import org.orange.domain.enums.AppHttpCodeEnum;
 import org.orange.domain.response.ResponseResult;
@@ -81,6 +82,10 @@ public class CategoryController {
             ResponseResult result=ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR);
             WebUtils.renderString(response, JSON.toJSONString(result));
         }
-
+    }
+    //修改状态
+    @PutMapping("/changeStatus")
+    public ResponseResult changeStatus(@RequestBody StatusDto statusDto){
+        return categoryService.changeStatus(statusDto);
     }
 }
