@@ -156,10 +156,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         if(articleDto.getSummary()!=null){
             queryWrapper.like(Article::getSummary,articleDto.getSummary());
         }
-        if(articleDto.getStatus()!=null){
-            queryWrapper.eq(Article::getStatus,articleDto.getStatus());
+        if(articleDto.getStatus()!=null&&!"".equals(articleDto.getStatus())){
+            if(articleDto.getStatus().equals("已发布")){
+                queryWrapper.eq(Article::getStatus,SystemConstants.ARTICLE_STATUS_NORMAL);
+            }else{
+                queryWrapper.eq(Article::getStatus,SystemConstants.ARTICLE_STATUS_DRAFT);
+            }
         }
-        queryWrapper.eq(Article::getDelFlag,SystemConstants.ARTICLE_STATUS_NORMAL);
+        queryWrapper.eq(Article::getDelFlag,SystemConstants.NOR);
         Page<Article> page=new Page<>(pageNum,pageSize);
         page(page,queryWrapper);
         List<Article> articles=page.getRecords();
@@ -206,7 +210,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResponseResult deleteArticle(List<Long> id) {
         List<Article> articles=articleMapper.selectBatchIds(id);
         articles = articles.stream()
-                .map(article -> article.setDelFlag(SystemConstants.ARTICLE_STATUS_DELETE))
+                .map(article -> article.setDelFlag(SystemConstants.DELETE))
                 .collect(Collectors.toList());
         for (Article article:articles){
             articleMapper.updateById(article);

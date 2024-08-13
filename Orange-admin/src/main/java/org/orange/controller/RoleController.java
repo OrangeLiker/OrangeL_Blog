@@ -27,6 +27,11 @@ public class RoleController {
     public ResponseResult getRoleList(Integer pageNum,Integer pageSize,String roleName,String status){
         return roleService.getRoleList(pageNum,pageSize,roleName,status);
     }
+    //查询所有状态正常的角色
+    @GetMapping("/listAllRole")
+    public ResponseResult listAllRole(){
+        return roleService.listAllRole();
+    }
     //修改角色状态
     @PutMapping("/changeStatus")
     public ResponseResult changeStatus(@RequestBody StatusDto statusDto){

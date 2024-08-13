@@ -20,7 +20,10 @@ public enum AppHttpCodeEnum {
     ROLES_NOT_EMPTY(511,"角色不能为空"),
     TAG_NOT_FOUND(512,"标签不存在"),
     MENU_EXISTED(513,"菜单已存在"),
-    MENU_HAS_CHILD(514,"存在子菜单无法删除");
+    MENU_HAS_CHILD(514,"存在子菜单无法删除"),
+    EMAIL_FORMAT_ERROR(515,"邮箱格式错误" ),
+    REQUIRE_PASSWORD(516,"密码不能为空" ),
+    PASSWORD_FORMAT_ERROR(517, "密码只能为6-16位数字、字母、下划线");
     int code;
     String msg;
     AppHttpCodeEnum(int code, String errorMessage){

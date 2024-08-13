@@ -40,5 +40,7 @@ public class SystemConstants {
     public static final String MENU_NORMAL="0";
     public static final String DEL="1";
     public static final String NORMAL="0";
+    public static final int NOR=0;
+    public static final int DELETE=1;
 
 }

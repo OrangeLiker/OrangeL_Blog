@@ -149,4 +149,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         }
         return ResponseResult.okResult();
     }
+    //新增用户时需要查询正常角色回显
+    @Override
+    public ResponseResult listAllRole() {
+        LambdaQueryWrapper<Role> queryWrapper=new LambdaQueryWrapper<>();
+        queryWrapper.eq(Role::getStatus,SystemConstants.STATUS_NORMAL);
+        queryWrapper.eq(Role::getDelFlag,SystemConstants.NORMAL);
+        List<Role> roleList=roleMapper.selectList(queryWrapper);
+        return ResponseResult.okResult(roleList);
+    }
 }
