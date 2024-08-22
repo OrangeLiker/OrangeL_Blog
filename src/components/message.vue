@@ -41,7 +41,7 @@
                     <li class="tmsg-c-item" v-for="(item,index) in commentList" :key="'common'+index">
                         <article class="">
                             <header>
-                                <img  :src="$store.state.errorImg"  :onerror="$store.state.errorImg">
+                                <img  :src="item.avatar?item.avatar:'static/img/tou.jpg'"  :onerror="$store.state.errorImg">
                                 <div class="i-name">
                                     {{item.username}}
                                 </div>
@@ -63,8 +63,8 @@
                             <li class="tmsg-c-item" v-for="(citem,cindex) in item.children" :key="'citem'+cindex">
                                 <article class="">
                                     <header>
-                                            <img :src="$store.state.errorImg"  :onerror="$store.state.errorImg">
-                                            <div class="i-name">
+                                            <img :src="citem.avatar?citem.avatar:'static/img/tou.jpg'"  :onerror="$store.state.errorImg">
+                                            <div class="i-name" >
                                                 {{citem.username}} <span>回复</span> {{citem.toCommentUserName}}
                                             </div>
                                             <div class="i-time">
@@ -93,6 +93,7 @@
 <script>
     import {sendComment,getArticleComment,getLinkComment} from '../api/comment.js'
     import { getToken } from '../utils/auth.js'
+    import {getUserInfo} from '../api/user.js'
     export default {
         data() { //选项 / 数据
             return {

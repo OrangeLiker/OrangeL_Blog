@@ -9,44 +9,44 @@
     <section>
       <div>
         <img
-          src="static/img/coffee.jpg"
+          src="static/img/reward.png"
           alt=""
-          style="max-width: 20%"
+          style="max-width: 100%;"
           class="coffee"
         />
       </div>
       <h1>赞赏说明：</h1>
       <p>
-        如果我的课程对你有所帮助，你可以请作者喝杯咖啡表示鼓励
-        ☕️)请备注留下你的姓名/昵称方便我公布赞赏记录。
+        制作不易，皆为个人心血。如果博主的文章能够对你有所帮助，而且你也有所财富积累的话可以请作者喝杯咖啡表示鼓励
+        ☕️)请备注留下你的姓名/昵称方便我将打赏记录公布😄。
       </p>
       <hr />
       <h1>赞赏方式：</h1>
       <el-row :gutter="30">
         <el-col :span="12" class="donate-item">
-          <div class="donate-tip">
+          <div class="donate-tip" style="height: 210px;width: 210px;margin-top: -10px;">
             <img
               :src="
                 rewardData.wechat_image
                   ? rewardData.wechat_image
-                  : 'static/img/wx_pay.png'
+                  : 'static/img/qqre.png'
               "
               :onerror="$store.state.errorImg"
             />
-            <span>微信扫一扫，请我喝杯咖啡</span>
+            <span>By Wechat✅</span>
           </div>
         </el-col>
         <el-col :span="12" class="donate-item">
-          <div class="donate-tip">
+          <div class="donate-tip" style="height: 170px;width: 160px;">
             <img
               :src="
                 rewardData.alipay_image
                   ? rewardData.alipay_image
-                  : 'static/img/ali_pay.jpg'
+                  : 'static/img/alre.jpg'
               "
               :onerror="$store.state.errorImg"
             />
-            <span style="padding-top: 14px">支付宝扫一扫，请我喝杯咖啡</span>
+            <span style="padding-top: 34px">By Alipay☑</span>
           </div>
         </el-col>
       </el-row>
@@ -81,19 +81,19 @@ export default {
       tableData: [
         {
           //赞赏数据
-          "payTime":"2021-10-23",
-          "name":"智障少女欢乐多",
-          "money":"188"
+          "payTime":"2023-10-23",
+          "name":"一只小鹿咿呀呀",
+          "money":"10"
         },
         {
-          "payTime":"2021-10-28",
-          "name":"刺猬",
-          "money":"50"
+          "payTime":"2023-10-28",
+          "name":"0520",
+          "money":"5"
         },
         {
-          "payTime":"2021-11-03",
-          "name":"迅捷小鹿",
-          "money":"30"
+          "payTime":"2024-1-13",
+          "name":"风",
+          "money":"10"
         },
       ],
     };

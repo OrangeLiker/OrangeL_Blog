@@ -40,8 +40,6 @@
                             <el-radio class="radio" v-model="userInfoObj.sex" label="1">女</el-radio>
                           </template>
                       </li>
-
-
                   </ul>
                   <div class=" saveInfobtn">
                       <a class="tcolors-bg"  href="javascript:void(0);" @click="isEdit=!isEdit">返 回</a>
@@ -55,7 +53,6 @@
                           个人中心
                       <span class="gotoEdit" @click="isEdit=!isEdit"><i class="fa fa-wa fa-edit"></i>编辑</span>
                   </h1>
-
               </header>
               <section>
                   <ul class="userInfoBox">
