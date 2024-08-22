@@ -1,0 +1,10 @@
+spring:
+  mail:
+    username: 2814964382@qq.com
+    password: xcbnvwrrgzebdgfd
+    host: smtp.qq.com
+  rabbitmq:
+    username: guest
+    password: 812908
+    addresses: localhost
+    virtual-host: /

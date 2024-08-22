@@ -27,8 +27,8 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class LogAspect {
     //确定切点
-    @Pointcut("@annotation(org.orange.annotation.SystemLog)")
-    public void pt() {
+    @Pointcut("@annotation(org.orange.annotation.SystemLog)")//指定注解
+    public void pt() {//切点方法
 
     }
 

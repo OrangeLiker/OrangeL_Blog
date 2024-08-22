@@ -19,20 +19,16 @@ import org.orange.mapper.RoleMapper;
 import org.orange.mapper.UserMapper;
 import org.orange.mapper.UserRoleMapper;
 import org.orange.service.UserService;
-import org.orange.utils.BeanCopyUtils;
-import org.orange.utils.EmailValidator;
-import org.orange.utils.PwValidator;
-import org.orange.utils.SecurityUtils;
+import org.orange.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+
+import static java.util.Map.*;
 
 /**
  * @BelongsProject: Orange_Blog
@@ -56,6 +52,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserRoleMapper userRoleMapper;
     @Autowired
     private RoleMapper roleMapper;
+    @Autowired
+    private RedisCache redisCache;
     @Override
     public ResponseResult userInfo() {
         Long userId = SecurityUtils.getUserId();
@@ -207,6 +205,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userMapper.updateById(user);
         return ResponseResult.okResult();
     }
+
 
     //对数据进行重复性判断
     private boolean userNameExist(String userName){

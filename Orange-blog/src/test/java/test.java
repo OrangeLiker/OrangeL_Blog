@@ -1,6 +1,7 @@
 import io.swagger.models.auth.In;
 import org.junit.jupiter.api.Test;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
@@ -16,15 +17,28 @@ import java.util.TreeSet;
 public class test {
     @Test
     public void test() {
-        TreeSet<Integer> set=new TreeSet<>();
-        TreeSet<Integer> subSet=new TreeSet<>();
-        for (int i = 606; i < 613; i++) {
-            if(i%2==0){
-                set.add(i);
-            }
+       int a=10;
+       Integer b=a;
+        System.out.println(b.getClass().getName());
+    }
+    class Person implements Serializable{
+        private static final long serialVersionUID = 1L;
+        private String name;
+        private int age;
+        public Person(String name,int age){
+            this.name=name;
+            this.age=age;
         }
-        subSet=(TreeSet)set.subSet(608,true,611,true);
-        subSet.add(629);
-        System.out.println(set+" "+subSet);
+
+        @Override
+        public String toString() {
+            return "Person{" +
+                    "name='" + name + '\'' +
+                    ", age=" + age +
+                    '}';
+        }
+    }
+    public class SerializeExample{
+
     }
 }

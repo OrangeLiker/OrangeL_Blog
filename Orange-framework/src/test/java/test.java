@@ -26,9 +26,6 @@ public class test {
     private UserRoleMapper userRoleMapper;
     @Test
     public void Test(){
-        LambdaQueryWrapper<UserRole> queryWrapper=new LambdaQueryWrapper<>();
-        queryWrapper.eq(UserRole::getUserId,7);
-        UserRole userRoles=userRoleMapper.selectOne(queryWrapper);
-        System.out.println(userRoles);
+
     }
 }

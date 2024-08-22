@@ -47,6 +47,7 @@ public class CommentVo {
 
     private Long toCommentUserId;
 
+
     /**
      * 回复目标评论id
      */
@@ -56,6 +57,8 @@ public class CommentVo {
     private String toCommentUserName;
 
     private String username;
+
+    private String avatar;
 
     private Long createBy;
 

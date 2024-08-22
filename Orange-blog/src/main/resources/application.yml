@@ -10,6 +10,15 @@ spring:
     multipart:
       max-file-size: 5MB
       max-request-size: 10MB
+  mail:
+    host: smtp.qq.com
+    username: 2814964382@qq.com
+    password: xcbnvwrrgzebdgfd
+  rabbitmq:
+    username: guest
+    password: 812908
+    addresses: localhost
+    virtual-host: /
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
