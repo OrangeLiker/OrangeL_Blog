@@ -15,7 +15,6 @@ import plugins from './plugins' // plugins
 import './assets/icons' // icon
 import '@/permission' // permission control
 import { parseTime, resetForm, addDateRange, selectDictLabel, selectDictLabels, handleTree } from '@/utils/sg'
-
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 // 全局方法挂载
@@ -37,7 +36,6 @@ if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
   mockXHR()
 }
-
 // set ElementUI lang to EN
 // Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
@@ -46,7 +44,6 @@ Vue.use(ElementUI)
 Vue.use(plugins)
 Vue.use(mavonEditor)
 Vue.config.productionTip = false
-
 new Vue({
   el: '#app',
   router,
