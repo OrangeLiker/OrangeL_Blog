@@ -24,7 +24,10 @@ public enum AppHttpCodeEnum {
     EMAIL_FORMAT_ERROR(515,"邮箱格式错误" ),
     REQUIRE_PASSWORD(516,"密码不能为空" ),
     PASSWORD_FORMAT_ERROR(517, "密码只能为6-16位数字、字母、下划线"),
-    CODE_ERROR(518,"邮件未发送");
+    CODE_ERROR(518,"邮件未发送"),
+    REQUIRE_VALIDACODE(519,"未填写验证码"),
+    CODE_EXPIRED(520,"验证码已过期"),
+    CODE_WRONG(521,"验证码错误！");
     int code;
     String msg;
     AppHttpCodeEnum(int code, String errorMessage){

@@ -1,5 +1,6 @@
 package org.orange.constans;
 
+import org.orange.domain.enums.AppHttpCodeEnum;
 import org.springframework.context.annotation.Configuration;
 
 /**

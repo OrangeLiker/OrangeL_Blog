@@ -2,6 +2,7 @@ package org.orange.domain.entity;
 import java.util.Date;
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -110,6 +111,8 @@ public class User {
      */     
  
     private Integer delFlag;
+    @TableField(exist = false)
+    private String validaCode;
 
 }
 

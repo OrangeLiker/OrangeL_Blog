@@ -7,6 +7,7 @@ import org.orange.annotation.SystemLog;
 import org.orange.domain.entity.User;
 import org.orange.domain.enums.AppHttpCodeEnum;
 import org.orange.domain.response.ResponseResult;
+import org.orange.exception.SystemException;
 import org.orange.service.UserService;
 import org.orange.utils.EmailService;
 import org.orange.utils.EmailValidator;
@@ -14,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 
 /**
  * @BelongsProject: Orange_Blog
@@ -55,13 +58,8 @@ public class UserController {
     @PostMapping("/askCode")
     @SystemLog(businessName = "获取验证码")
     @ApiOperation("获取验证码")
-    public ResponseResult askCode(@RequestParam String email, @RequestParam String type){
-        try {
-            emailService.sendVerificationEmail(email, type);
-            return ResponseResult.okResult();
-          }catch (Exception e){
-            return ResponseResult.errorResult(AppHttpCodeEnum.CODE_ERROR);
-        }
+    public ResponseResult askCode(@RequestParam String email, @RequestParam String type) throws MessagingException, UnsupportedEncodingException {
+        return emailService.sendVerificationEmail(email, type);
     }
 }
 

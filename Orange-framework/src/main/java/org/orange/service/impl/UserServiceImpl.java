@@ -80,10 +80,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if(userEmailExist(user.getEmail())){
             throw new SystemException(AppHttpCodeEnum.EMAIL_EXIST);
         }
+        //校验验证码
+        String validaCode=user.getValidaCode();
+        if(validaCode==null||"".equals(validaCode)){
+            return ResponseResult.errorResult(AppHttpCodeEnum.REQUIRE_VALIDACODE);
+        }
+        String redisCode=redisCache.getCacheObject(SystemConstants.VERIFY_EMAIL_DATA+user.getEmail());
+        if(redisCode==null){
+            return ResponseResult.errorResult(AppHttpCodeEnum.CODE_EXPIRED);
+        }
+        if(!redisCode.equals(validaCode)){
+            return ResponseResult.errorResult(AppHttpCodeEnum.CODE_WRONG);
+        }
         //密码加密处理
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         //存入数据库
         save(user);
+        redisCache.deleteObject(SystemConstants.VERIFY_EMAIL_DATA+user.getEmail());
         return ResponseResult.okResult();
     }
 
