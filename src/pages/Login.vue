@@ -27,10 +27,11 @@
                     </el-input>
 
                     <el-input
-                            type="password"
+                          type="password"
                           placeholder="密码"
                            @keyup.enter.native="loginEnterFun"
                           v-model="password">
+
                     </el-input>
 
                     <h3><a href="">忘记密码？</a></h3>
@@ -81,6 +82,30 @@
                         type="error"
                         show-icon  :closable="false">
                     </el-alert>
+                    <div>
+                      <el-row>
+                        <el-col :span="15">
+                          <el-input placeholder="验证码" v-model="nvalidCode"></el-input>
+                        </el-col>
+                        <el-col :span="8">
+                          <el-button
+                          type="success"
+                          :disabled="countdown > 0"
+                          style="margin-left: 16px;width: 100px; text-align: center;"
+                          @click="sendValidateCode">
+                            <span v-if="countdown === 0">发送验证码</span>
+                            <span v-else>{{countdown}}秒后重试</span>
+                          </el-button>
+                        </el-col>
+                      </el-row>
+                    </div>
+                    <el-alert
+                        v-show="validCodeErr"
+                        title="验证码错误"
+                        type="error"
+                        show-icon   :closable="false">
+                    </el-alert>
+
                     <el-input
                           type="password"
                           placeholder="密码:6-12位英文、数字、下划线"
@@ -111,9 +136,8 @@
         </div>
     </div>
 </template>
-
 <script>
-import {userLogin,userRegister} from '../api/user.js'
+import {userLogin,userRegister,askCode} from '../api/user.js'
 import {setToken} from '../utils/auth.js'
     export default {
         name: 'Login',
@@ -124,6 +148,7 @@ import {setToken} from '../utils/auth.js'
                 password: '',//密码
                 nusername: '',//新用户注册名
                 nemail: '',//新用户注册邮箱
+                nvalidCode: '',//新用户注册验证码
                 npassword: '',//新用户注册密码
                 npassword2: '',//新用户注册重复密码
                 login: 0,//是否已经登录
@@ -131,6 +156,7 @@ import {setToken} from '../utils/auth.js'
                 loginTitle:'用户名或密码错误',
                 nusernameErr:false,//新用户注册用户名错误
                 nemailErr: false,//新用户注册邮箱错误
+                validCodeErr: false,//新用户注册验证码错误
                 npasswordErr: false,//新用户注册密码错误
                 npassword2Err: false,//新用户注册重复密码错误
                 registerErr: false,//已注册错误
@@ -138,6 +164,8 @@ import {setToken} from '../utils/auth.js'
                 step: 1,//注册进度
                 fullscreenLoading: false,//全屏loading
                 urlstate: 0,//重新注册
+                countdown: 0,//倒计时
+                timer: null,//定时器
             }
         },
         methods: { //事件处理器
@@ -167,7 +195,35 @@ import {setToken} from '../utils/auth.js'
                         this.$router.push({path:'/'});
                     }
                 })
-
+            },
+            sendValidateCode(){
+              if(this.countdown === 0){
+                const email=this.nemail;
+                const type='register';
+                askCode(email, type).then(response => {
+                   this.$message.success('验证码已发送，请检查您的邮箱');
+                   this.startCountdown();
+                 })
+                  .catch(error => {
+                   this.$message.error('发送验证码失败，请稍后再试');
+                });
+              }
+            },
+            startCountdown(){
+              this.countdown = 60; // 设置倒计时时间为60秒
+              this.timer = setInterval(() => {
+              if (this.countdown > 0) {
+                  this.countdown--;
+              } else {
+                  clearInterval(this.timer); // 倒计时结束时清除定时器
+                  this.timer = null;
+                     }
+                 }, 1000);
+            },
+            beforeDestroy(){
+              if(this.timer){
+                clearInterval(this.timer);
+              }
             },
             registerEnterFun: function(e){
                 var keyCode = window.event? e.keyCode:e.which;
@@ -180,6 +236,7 @@ import {setToken} from '../utils/auth.js'
                 var that = this;
                 var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/ ;
                 var preg = /^(\w){6,12}$/;
+                var vreg = /^\d{6}$/;
                 if(that.nusername){
                     that.nusernameErr = false;
                 }else{
@@ -200,9 +257,15 @@ import {setToken} from '../utils/auth.js'
                 }else{
                     that.npasswordErr = true;
                 }
+                if(vreg.test(that.nvalidCode)){
+                    that.validCodeErr = false;
+                }else{
+                    that.validCodeErr = true;
+                }
                 if(!that.nusernameErr&&!that.nemailErr&&!that.npasswordErr&&!that.npassword2Err){
                     that.fullscreenLoading = true;
-                    userRegister(that.nusername,that.nnickName,that.nemail,that.npassword).then((response)=>{
+                    userRegister(that.nusername,that.nnickName,that.nemail,that.npassword,that.nvalidCode).then((response)=>{
+                         this.$message.success('注册成功');
                          //注册成功后调整到登录
                          that.goLogin()
                     }).catch((error)=>{

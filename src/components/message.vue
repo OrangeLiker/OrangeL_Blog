@@ -53,7 +53,7 @@
                                 </div>
                             </header>
                             <section>
-                                <p v-html="analyzeEmoji(item.content)">{{analyzeEmoji(item.content)}}</p>
+                                <p v-html="analyzeEmoji(item.content)"></p>
                                 <div v-if="haslogin" class="tmsg-replay" @click="respondMsg(item.id,item.id,item.createBy)">
                                     回复
                                 </div>
@@ -72,7 +72,7 @@
                                             </div>
                                     </header>
                                     <section>
-                                        <p v-html="analyzeEmoji(citem.content)">{{citem.content}}</p>
+                                        <p v-html="analyzeEmoji(citem.content)"></p>
                                         <div v-show="haslogin" class="tmsg-replay" @click="respondMsg(item.id,citem.id,citem.createBy)">
                                             回复
                                         </div>

@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.17.0",
-    "element-ui": "^1.4.12",
+    "element-ui": "^2.15.11",
     "js-cookie": "2.2.0",
     "mavon-editor": "^2.10.4",
     "sg-vue-blog": "file:",
