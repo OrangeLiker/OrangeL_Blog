@@ -1,10 +1,8 @@
 package org.orange.utils;
 
+
 import org.orange.constans.SystemConstants;
-import org.orange.domain.response.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -43,8 +41,10 @@ public class EmailService {
             message.setSubject("重置密码🍊！");
             message.setText("您重置验证码为："+code+",有效期3分钟，别再忘记啦(●'◡'●)");
         }
+        //设置收件人，发件人
         message.setTo(email);
         message.setFrom(MyEmail);
+        //发送邮件
         mailSender.send(message);
     }
 }
