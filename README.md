@@ -4,8 +4,11 @@
 
 <hr/>
 OrangeLiker'sBlog是一个基于SpringBoot3 & Vue2 的前后端分离的个人博客项目，旨在提升个人技术，分享日常学习收获。
+
 ##  技术选型
-SpringBoot3、Mybatis-Plus、SpringSecurity、Redis、Swagger2、EasyExcel、Vue2、ElementUI
+- **SpringBoot3、Mybatis-Plus、SpringSecurity、Redis、Swagger2、EasyExcel、Vue2、ElementUI**
+
+
 ##  项目亮点
 - **开发风格**:系统开发使用MVC架构和Restful代码风格，利用多模块化，保证代码逻辑清晰，提升代码的可维护性。
 - **数据持久化**:通过MyBatis-Plus结合EasyCode插件快速实现对MySQL数据库表对实体类映射的操作，保障数据的有效持久化和查询效率。
