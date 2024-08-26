@@ -1,4 +1,4 @@
-<p align="center"><img src= "https://study-note908.oss-cn-beijing.aliyuncs.com/OrangeBlog/images/2024/08/ce3d1b41-22c1-4471-8ee8-f19fa74a548d.jpg" alt="MaxKB" width="300" /></p>
+<p align="center"><img src= "https://study-note908.oss-cn-beijing.aliyuncs.com/OrangeBlog/images/2024/08/ce3d1b41-22c1-4471-8ee8-f19fa74a548d.jpg" alt="MaxKB" width="800" height="600"/></p>
 <h3 align="center">OrangeLiker'sBlog 小王的个人博客</h3>
 
 
