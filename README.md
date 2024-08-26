@@ -1,16 +1,11 @@
 <p align="center"><img src= "https://study-note908.oss-cn-beijing.aliyuncs.com/OrangeBlog/images/2024/08/ce3d1b41-22c1-4471-8ee8-f19fa74a548d.jpg" alt="MaxKB" width="800" height="400"/></p>
 <h3 align="center">OrangeLiker'sBlog 小王的个人博客</h3>
-<p align="center">
-  <a href="https://opensource.org/license/MIT"><img src="https://img.shields.io/github/license/laigeoffer/pmhub?color=rgb(25%2C%20121%2C%20255)" alt="The MIT License"></a>
-  <a href=""><img src="https://img.shields.io/github/forks/laigeoffer/pmhub?color=green" alt="Forks"></a>
-  <a href="https://laigeoffer.cn/"><img src="https://img.shields.io/badge/PmHub-%E5%AE%98%E7%BD%91-green" alt="Official"></a>
-  <a href="https://github.com/laigeoffer/pmhub"><img src="https://img.shields.io/github/stars/laigeoffer/pmhub?style=flat-square&color=rgb(25%2C%20121%2C%20255)" alt="Stars"></a>    
-  <a href="https://pmhub.laigeoffer.cn/"><img src="https://img.shields.io/badge/PmHub-%E4%BD%93%E9%AA%8C%E5%9C%B0%E5%9D%80-blue" alt="Experience"></a>  
-</p>
+
 
 <hr/>
 OrangeLiker'sBlog是一个基于SpringBoot3 & Vue2 的前后端分离的个人博客项目，旨在提升个人技术，分享日常学习收获。
-
+##  技术选型
+SpringBoot3、Mybatis-Plus、SpringSecurity、Redis、Swagger2、EasyExcel、Vue2、ElementUI
 ##  项目亮点
 - **开发风格**:系统开发使用MVC架构和Restful代码风格，利用多模块化，保证代码逻辑清晰，提升代码的可维护性。
 - **数据持久化**:通过MyBatis-Plus结合EasyCode插件快速实现对MySQL数据库表对实体类映射的操作，保障数据的有效持久化和查询效率。
