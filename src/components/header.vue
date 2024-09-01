@@ -115,36 +115,29 @@ export default {
 				});
 			}
 		},
-		// 用户退出登录
-		userlogout: function() {
-			var that = this;
-			this.$confirm('是否确认退出?', '退出提示', {
-				confirmButtonText: '确定',
-				cancelButtonText: '取消',
-				type: 'warning'
-			}).then(() => {
-				// console.log(that.$route.path);
+  // 用户退出登录
+  userlogout: function() {
+    var that = this;
+    this.$confirm('是否确认退出?', '退出提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    }).then(() => {
+      logout().then((response) => {
+        removeToken();
+        localStorage.removeItem('userInfo');
+        that.haslogin = false;
+        that.$message({
+          type: 'success',
+          message: '退出成功!'
+        });
+        that.$router.push({ path: '/' }); // 立即跳转到主页
+      });
+    }).catch(() => {
+      // 取消操作的处理逻辑
+    });
+  },
 
-				logout().then((response)=>{
-					removeToken()
-					localStorage.removeItem('userInfo');
-					that.haslogin = false;
-					window.location.reload();
-						that.$message({
-							type: 'success',
-							message: '退出成功!'
-						});
-					if (that.$route.path == '/UserInfo') {
-						that.$router.push({
-							path: '/'
-						});
-					}
-				})
-			}).catch(() => {
-				//
-			});
-
-		},
 		routeChange: function() {
 			var that = this;
 			that.pMenu = true
