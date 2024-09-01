@@ -3,6 +3,7 @@ import java.util.Date;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.ToStringSerializer;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +24,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 public class Tag {
 
          
-    @TableId
+    @TableId(type= IdType.AUTO)
     @JSONField(serializeUsing= ToStringSerializer.class)
     private Long id;
 

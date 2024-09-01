@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.ToStringSerializer;
+import com.baomidou.mybatisplus.annotation.IdType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class ArticleTag {
     /**
      * 文章id
      */
+    @TableId(type = IdType.AUTO)
     @JSONField(serializeUsing= ToStringSerializer.class)
     private Long articleId;
 

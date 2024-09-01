@@ -94,6 +94,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         //密码加密处理
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setCreateTime(new Date());
         //存入数据库
         save(user);
         redisCache.deleteObject(SystemConstants.VERIFY_EMAIL_DATA+user.getEmail());
@@ -187,11 +188,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public ResponseResult updateUser(UserDto userDto) {
-        if(userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getPhonenumber,userDto.getPhonenumber()))!=null){
-            return ResponseResult.errorResult(AppHttpCodeEnum.PHONENUMBER_EXIST);
+        String newPhone=userDto.getPhonenumber();
+        if(newPhone!=null){
+            String oldPhone=userMapper.selectById(userDto.getId()).getPhonenumber();
+            if(!userDto.getPhonenumber().equals(oldPhone)){
+                if(userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getPhonenumber,userDto.getPhonenumber()))!=null){
+                    return ResponseResult.errorResult(AppHttpCodeEnum.PHONENUMBER_EXIST);
+                }
+            }
         }
-        if(userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getEmail,userDto.getEmail()))!=null){
-            return ResponseResult.errorResult(AppHttpCodeEnum.EMAIL_EXIST);
+        String oldEmail=userMapper.selectById(userDto.getId()).getEmail();
+        //如果邮箱不变，不用判断
+        if(!userDto.getEmail().equals(oldEmail)){
+            if(userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getEmail,userDto.getEmail()))!=null) {
+                return ResponseResult.errorResult(AppHttpCodeEnum.EMAIL_EXIST);
+            }
         }
         if(!emailValidator.isValidEmail(userDto.getEmail())){
             return ResponseResult.errorResult(AppHttpCodeEnum.EMAIL_FORMAT_ERROR);

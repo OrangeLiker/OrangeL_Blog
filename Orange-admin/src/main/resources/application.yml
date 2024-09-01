@@ -13,16 +13,13 @@ spring:
   mail:
     host: smtp.qq.com
     username: 2814964382@qq.com
-    password: xcbnvwrrgzebdgfd
-  rabbitmq:
-    username: guest
-    password: 812908
-    addresses: localhost
-    virtual-host: /
+    password: ${MAIL_PASSWORD}
   mybatis-plus:
     configuration:
       log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
       map-underscore-to-camel-case: true
+    db-config:
+      id-type: auto
   global-config:
     db-config:
       logic-delete-value: 1

@@ -193,6 +193,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         Article article = BeanCopyUtils.copyBean(updateArticleVo, Article.class);
         article.setUpdateBy(SecurityUtils.getUserId());
         article.setUpdateTime(new Date());
+        //如果已发布的话，修改不会更改，如果是草稿，修改后就直接发布！
+        article.setStatus(SystemConstants.ARTICLE_STATUS_NORMAL);
         articleMapper.updateById(article);
         //删除原有关联
         LambdaQueryWrapper<ArticleTag> queryWrapper=new LambdaQueryWrapper<>();

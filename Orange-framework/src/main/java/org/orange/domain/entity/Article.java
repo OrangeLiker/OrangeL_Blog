@@ -5,10 +5,7 @@ import java.io.Serializable;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.ToStringSerializer;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -26,7 +23,7 @@ import lombok.experimental.Accessors;
 @TableName("sg_article")
 @Accessors(chain = true)//链式调用
 public class Article {
-    @TableId
+    @TableId(type = IdType.AUTO)
     @JSONField(serializeUsing= ToStringSerializer.class)
     private Long id;
 

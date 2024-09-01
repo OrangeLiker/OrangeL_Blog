@@ -1,6 +1,8 @@
 package org.orange.domain.entity;
 import java.util.Date;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +20,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @TableName("sg_category")
 public class Category {
 
-
+    @TableId(type= IdType.AUTO)
     private Long id;
 
     /**
