@@ -7,7 +7,7 @@ function resolve(dir) {
 
 const name = process.env.VUE_APP_TITLE || 'OrangeLiker_Blog管理系统' // 网页标题
 
-const port = process.env.port || process.env.npm_config_port || 81 // 端口
+const port = process.env.port || process.env.npm_config_port || 81 // 上线改为8094
 
 // vue.config.js 配置说明
 // 官方vue.config.js 参考文档 https://cli.vuejs.org/zh/config/#css-loaderoptions
@@ -28,7 +28,7 @@ module.exports = {
     port: port,
     open: true,
     proxy: {
-      // detail: https://cli.vuejs.org/config/#devserver-proxy
+      // detail: https://cli.vuejs.org/config/#devserver-proxy 线上环境http://47.99.97.131:8989
       [process.env.VUE_APP_BASE_API]: {
         target: `http://localhost:8989`,
         changeOrigin: true,

@@ -199,8 +199,8 @@ $light_gray: #eee;
   min-height: 100%;
   width: 100%;
   overflow: hidden;
-  background-image: url('https://preview.redd.it/lofigirl-room-extension-v0-th12ddlkje3b1.png?auto=webp&s=e7e3971d73baca9513ad58a517f47487658dbb97')!important;
-  background-size:auto; /* 使图片覆盖整个容器 */
+  background-image: url('~@/assets/images/bc.png');
+  background-size:cover; /* 使图片覆盖整个容器 */
   background-repeat: no-repeat; /* 防止图片重复 */
   background-position: center; /* 图片居中显示 */
   .login-form {
