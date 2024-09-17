@@ -3,13 +3,16 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/orange_blog?useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/orange_blog?useSSL=false&serverTimezone=Asia/Shanghai #上线把localhost改为服务器ip
     username: root
     password: 123456
   servlet:
     multipart:
       max-file-size: 5MB
       max-request-size: 10MB
+  redis:
+    host: localhost #上线把localhost改为服务器ip
+    port: 6379
   mail:
     host: smtp.qq.com
     username: 2814964382@qq.com
@@ -18,8 +21,6 @@ spring:
     configuration:
       log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
       map-underscore-to-camel-case: true
-    db-config:
-      id-type: auto
   global-config:
     db-config:
       logic-delete-value: 1

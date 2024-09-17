@@ -113,4 +113,23 @@
             <artifactId>activation</artifactId>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <!-- 配置maven-jar-plugin以设置主程序入口 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version> <!-- 可以使用适合的版本号 -->
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <!-- 设置子项目的主类，必须是包含main方法的类 -->
+                            <mainClass>org.orange.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

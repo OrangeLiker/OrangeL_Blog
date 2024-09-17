@@ -117,6 +117,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     @Override
     public ResponseResult deleteCategory(List<Long> id) {
         for (Long categoryId : id) {
+            System.out.println(categoryId);
             Category category = getById(categoryId);
             category.setDelFlag(SystemConstants.Category_STATUS_DELETE);
             category.setUpdateBy(SecurityUtils.getUserId());

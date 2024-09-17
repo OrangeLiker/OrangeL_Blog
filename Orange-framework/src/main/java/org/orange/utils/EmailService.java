@@ -9,7 +9,6 @@ import org.orange.domain.response.ResponseResult;
 import org.orange.exception.SystemException;
 import org.orange.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,6 @@ import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
