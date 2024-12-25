@@ -16,7 +16,14 @@ spring:
   mail:
     host: smtp.qq.com
     username: 2814964382@qq.com
-    password: ${MAIL_PASSWORD}
+    password: gshieyrsdynhdfif  # 这里应该是您的授权码，而不是密码
+    port: 465  # 使用SSL时的端口号
+    properties:
+      mail.smtp.auth: true  # 启用身份验证
+      mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory  # 使用SSL Socket Factory
+      mail.smtp.socketFactory.fallback: false  # SSL连接失败时不使用其他协议
+      mail.smtp.ssl.enable: true  # 启用SSL
+    default-encoding: UTF-8  # 设置默认编码
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
