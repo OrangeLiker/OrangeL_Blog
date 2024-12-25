@@ -7,7 +7,7 @@
           :src="
             this.$store.state.themeObj.center_smailimg
               ? this.$store.state.themeObj.center_smailimg
-              : 'static/img/01jpg.jpg'
+              : 'static/img/blogTop.png'
           "
           alt=""
         />
@@ -20,12 +20,12 @@
         <div class="catch-me">
           <div class="icon-group">
             <el-tooltip class="item" content="Github" placement="top">
-              <a :href="catchMeObj.git" target="_blank"
+              <a :href="catchMeObj.git" target="_blank" @click="copyUrl"
                 ><i class="fa fa-fw fa-github"></i
               ></a>
             </el-tooltip>
             <el-tooltip class="item" effect="dark" content="QQ" placement="top">
-              <a :href="catchMeObj.qq" target="_blank"
+              <a :href="catchMeObj.qq" target="_blank" @click="copyUrl"
                 ><i class="fa fa-fw fa-qq"></i
               ></a>
             </el-tooltip>
@@ -35,7 +35,7 @@
               content="微博"
               placement="top"
             >
-              <a :href="catchMeObj.sina" target="_blank"
+              <a :href="catchMeObj.sina" target="_blank" @click="copyUrl"
                 ><i class="fa fa-fw fa-weibo"></i
               ></a>
             </el-tooltip>
@@ -57,7 +57,7 @@
               content="CSDN"
               placement="top"
             >
-              <a :href="catchMeObj.csdn" target="_blank"><i class="">C</i></a>
+              <a :href="catchMeObj.csdn" target="_blank" @click="copyUrl"><i class="">C</i></a>
             </el-tooltip>
           </div>
         </div>
@@ -122,7 +122,7 @@ export default {
       catchMeObj: {
         //个人信息
         git: "https://gitee.com",
-        qq: "/static/img/qq.png",
+        qq: "https://user.qzone.qq.com/2814964382/infocenter",
         sina: "https://weibo.com",
         wechat: "/static/img/weixin.png",
         csdn: "https://www.csdn.net/",
@@ -155,6 +155,22 @@ export default {
       hotArticleList().then((response) => {
         this.browseList = response;
       });
+    },
+    copyUrl(event) {
+      const currentUrl = window.location.href;
+      navigator.clipboard.writeText(currentUrl).then(() => {
+        this.$message({
+          message: '文章链接以复制，把它转发到任何你想分享的地方吧！',
+          type: 'success',
+        });
+      }).catch(err => {
+        console.error('复制链接失败:', err);
+        this.$message.error('复制链接失败，请手动复制！');
+      });
+      // 确保跳转
+      setTimeout(() => {
+        window.location.href = event.currentTarget.href;
+      }, 1000);
     },
   },
   components: {

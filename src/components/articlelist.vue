@@ -19,9 +19,9 @@
                     <i class="fa fa-fw fa-eye"></i>{{item.viewCount}} 次围观 •
 
                 </h2>
-                <div class="ui label">
-                    <a :href="'#/Share?classId='+item.class_id">{{item.categoryName}}</a>
-                </div>
+                 <div class="ui label">
+                    <a :href="'#/Share?classId=' + Number(item.class_id)">{{item.categoryName}}</a>
+                 </div>
             </header>
             <div class="article-content">
                 <p style="text-indent:2em;">
@@ -90,7 +90,7 @@ import {articleList} from '../api/article'
             },
             routeChange:function(){
                 var that = this;
-                this.queryParams.categoryId = (that.$route.query.classId==undefined?0:parseInt(that.$route.query.classId));//获取传参的classId
+                this.queryParams.categoryId=(that.$route.query.classId==undefined?0:parseInt(that.$route.query.classId));//获取传参的classId
                 this.showSearchShowList(true);
             }
         },
