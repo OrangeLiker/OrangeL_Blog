@@ -37,7 +37,7 @@ public class LinkController {
         return linkService.getLink(id);
     }
     //修改
-    @PutMapping
+    @PutMapping("/changeLinkStatus")
     public ResponseResult updateLink(@RequestBody LinkDto linkDto){
         return linkService.updateLink(linkDto);
     }
