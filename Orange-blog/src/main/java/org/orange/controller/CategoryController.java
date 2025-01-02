@@ -23,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/category")
-@Api(tags = "文章分类分类模块",description = "文章分类分类模块相关接口")
+@Api(tags = "文章分类模块",description = "文章分类模块相关接口")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;

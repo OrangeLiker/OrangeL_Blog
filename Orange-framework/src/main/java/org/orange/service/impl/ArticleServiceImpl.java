@@ -9,8 +9,10 @@ import org.orange.domain.entity.Article;
 import org.orange.domain.entity.ArticleTag;
 import org.orange.domain.entity.Category;
 import org.orange.domain.entity.Tag;
+import org.orange.domain.enums.AppHttpCodeEnum;
 import org.orange.domain.response.ResponseResult;
 import org.orange.domain.vo.*;
+import org.orange.exception.SystemException;
 import org.orange.mapper.ArticleMapper;
 import org.orange.mapper.ArticleTagMapper;
 import org.orange.service.ArticleService;
@@ -23,7 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -132,6 +136,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     @Transactional //开启声明式事务，保证数据的一致性
     public ResponseResult addArticle(ArticleDto articleDto) {
+        //对文章标题和内容不为空进行限制
+        if(StringUtils.isEmpty(articleDto.getContent())){
+          throw new SystemException(AppHttpCodeEnum.CODE_ARTICLE_NOT_NULL);
+        }
+        if(StringUtils.isEmpty(articleDto.getTitle())){
+            throw new SystemException(AppHttpCodeEnum.CODE_ARTICLE_TITLE_NOT_NULL);
+        }
         Article article = BeanCopyUtils.copyBean(articleDto, Article.class);
         article.setCreateBy(SecurityUtils.getUserId());
         article.setCreateTime(new Date());

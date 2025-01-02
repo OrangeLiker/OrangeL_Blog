@@ -2,6 +2,8 @@ package org.orange.controller;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson.JSON;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.orange.domain.dto.CategoryDto;
 import org.orange.domain.dto.StatusDto;
 import org.orange.domain.entity.Category;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -31,42 +34,50 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/content/category")
+@Api(tags = "文章分类管理模块",description = "文章分类管理模块相关接口")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
     //查询所有分类
     @GetMapping("/list")
+    @ApiOperation("查询分类列表")
     public ResponseResult<PageVo> getList(Integer pageNum, Integer pageSize,CategoryDto categoryDto){
         return categoryService.getCategory(pageNum,pageSize,categoryDto);
     }
     //查询所有分类
     @GetMapping("/listAllCategory")
+    @ApiOperation("查询所有分类")
     public ResponseResult listAllCategory(){
         List<CategoryVo> list=categoryService.getAllCategory();
         return ResponseResult.okResult(list);
     }
     //新增分类
     @PostMapping
-    public ResponseResult addCategory(@RequestBody Category category){
+    @ApiOperation("新增分类")
+    public ResponseResult addCategory(@NotNull @RequestBody Category category){
        return categoryService.addCategory(category);
     }
     //查询单个分类信息
     @GetMapping("/{id}")
+    @ApiOperation("查询单个分类")
     public ResponseResult getCategory(@PathVariable("id") Long id){
         return categoryService.getOneCategory(id);
     }
     //修改分类
     @PutMapping
+    @ApiOperation("修改分类")
     public ResponseResult updateCategory(@RequestBody Category category){
         return categoryService.updateCategory(category);
     }
     //删除分类
     @DeleteMapping("/{id}")
+    @ApiOperation("删除分类")
     public ResponseResult deleteCategory(@PathVariable("id") List<Long> id){
         return categoryService.deleteCategory(id);
     }
     //导出分类
     @GetMapping("/export")
+    @ApiOperation("导出分类")
     public void exportCategory(HttpServletResponse response){
         try {
             //设置下载文件的请求头
@@ -84,6 +95,7 @@ public class CategoryController {
     }
     //修改状态
     @PutMapping("/changeStatus")
+    @ApiOperation("修改分类状态")
     public ResponseResult changeStatus(@RequestBody StatusDto statusDto){
         return categoryService.changeStatus(statusDto);
     }

@@ -188,6 +188,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public ResponseResult updateUser(UserDto userDto) {
+//        User dbUser = userMapper.selectById(userDto.getId());
+//        List<Long> oldRoleIds = userRoleMapper.selectList(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, userDto.getId()))
+//                .stream().map(UserRole::getRoleId).collect(Collectors.toList());
+//        List<Long> newRoleIds = userDto.getRoleIds();
+//        if(dbUser.getUserName().equals(userDto.getUserName())
+//                &&dbUser.getNickName().equals(userDto.getNickName())
+//                &&dbUser.getPhonenumber().equals(userDto.getPhonenumber())
+//                &&dbUser.getEmail().equals(userDto.getEmail())
+//                &&dbUser.getSex().equals(userDto.getSex())
+//                &&dbUser.getStatus().equals(userDto.getStatus())&&compareList(oldRoleIds, newRoleIds)) {
+//            return ResponseResult.okResult(AppHttpCodeEnum.NO_CHANGES);
+//        }
         String newPhone=userDto.getPhonenumber();
         if(newPhone!=null){
             String oldPhone=userMapper.selectById(userDto.getId()).getPhonenumber();
@@ -241,5 +253,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         LambdaQueryWrapper<User> queryWrapper=new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getEmail,email);
         return count(queryWrapper)>0?true:false;
+    }
+
+    //比较两个List集合是否完全相同
+    private boolean compareList(List<Long> oldRoleIds, List<Long> newRoleIds) {
+        if(oldRoleIds.size()!=newRoleIds.size()){
+            return false;
+        }
+        for (Long oldRoleId:oldRoleIds){
+            if(!newRoleIds.contains(oldRoleId)){
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -27,7 +27,16 @@ public enum AppHttpCodeEnum {
     CODE_ERROR(518,"邮件未发送"),
     REQUIRE_VALIDACODE(519,"未填写验证码"),
     CODE_EXPIRED(520,"验证码已过期"),
-    CODE_WRONG(521,"验证码错误！");
+    CODE_WRONG(521,"验证码错误！"),
+
+    CODE_ARTICLE_NOT_NULL(523,"文章内容不能为空"),
+    CODE_ARTICLE_TITLE_NOT_NULL(524,"文章标题不能为空"),
+
+    CODE_CATEGORY_NAME_NOT_NULL(525,"分类名称不能为空"),
+
+    CODE_CATEGORY_DESCRIPTION_NOT_NULL(526,"分类描述不能为空"),
+
+    NO_CHANGES(540,"本次更新无修改");
     int code;
     String msg;
     AppHttpCodeEnum(int code, String errorMessage){

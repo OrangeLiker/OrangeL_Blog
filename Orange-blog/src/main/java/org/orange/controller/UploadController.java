@@ -31,6 +31,7 @@ public class UploadController {
     private UploadService uploadService;
 
     @PostMapping("/upload")
+    @ApiOperation("上传文件")
     public ResponseResult uploadFile(@RequestParam("img") MultipartFile file) throws IOException {
         if(file==null){
             return ResponseResult.errorResult(AppHttpCodeEnum.FILE_NOTEMPTY,"文件不能为空");

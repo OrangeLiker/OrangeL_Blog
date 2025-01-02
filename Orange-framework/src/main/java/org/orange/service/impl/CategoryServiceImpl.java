@@ -3,14 +3,17 @@ package org.orange.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.poi.util.StringUtil;
 import org.orange.constans.SystemConstants;
 import org.orange.domain.dto.CategoryDto;
 import org.orange.domain.dto.StatusDto;
 import org.orange.domain.entity.Article;
 import org.orange.domain.entity.Category;
+import org.orange.domain.enums.AppHttpCodeEnum;
 import org.orange.domain.response.ResponseResult;
 import org.orange.domain.vo.CategoryVo;
 import org.orange.domain.vo.PageVo;
+import org.orange.exception.SystemException;
 import org.orange.mapper.CategoryMapper;
 import org.orange.service.ArticleService;
 import org.orange.service.CategoryService;
@@ -18,6 +21,7 @@ import org.orange.utils.BeanCopyUtils;
 import org.orange.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -90,6 +94,12 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
     @Override
     public ResponseResult addCategory(Category category) {
+        if(StringUtils.isEmpty(category.getName())){
+            throw new SystemException(AppHttpCodeEnum.CODE_CATEGORY_NAME_NOT_NULL);
+        }
+        if(StringUtils.isEmpty(category.getDescription())){
+            throw new SystemException(AppHttpCodeEnum.CODE_CATEGORY_DESCRIPTION_NOT_NULL);
+        }
         category.setCreateTime(new Date());
         category.setCreateBy(SecurityUtils.getUserId());
         category.setUpdateBy(SecurityUtils.getUserId());
