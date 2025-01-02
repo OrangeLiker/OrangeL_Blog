@@ -10,9 +10,14 @@
                   placeholder="说点什么呢``"
                   v-model="textarea">
                 </el-input>
+
                 <div :class="pBody?'OwO':'OwO OwO-open'">
                     <div class="OwO-logo" @click="pBody=!pBody">
                         <span>OwO表情</span>
+                    </div>
+                    <!-- 重置按钮 -->
+                    <div class="reset-button" @click="clearTextarea">
+                        <span>重置评论</span>
                     </div>
                     <div class="OwO-body">
                         <ul class="OwO-items OwO-items-show">
@@ -233,6 +238,11 @@
                 }
                 return str;
           },
+
+          clearTextarea: function() {
+                this.textarea = ''; // 清空评论框
+            },
+
           //发送留言
           sendMsg:function(){//留言
               var that = this;
@@ -394,7 +404,26 @@
     z-index: 2;
     line-height: 30px;
 }
+.OwO .reset-button{
+    position: relative;
+    border-radius: 4px;
+    color:#444;
+    display: inline-block;
+    background: #fff;
+    border:1px solid #ddd;
+    font-size: 13px;
+    padding:0 6px;
+    cursor: pointer;
+    height:30px;
+    box-sizing: border-box;
+    z-index: 2;
+    line-height: 30px;
+}
 .OwO .OwO-logo:hover{
+    animation:a 5s infinite ease-in-out;
+    -webkit-animation:a 5s infinite ease-in-out;
+}
+.OwO .reset-button:hover{
     animation:a 5s infinite ease-in-out;
     -webkit-animation:a 5s infinite ease-in-out;
 }
@@ -414,7 +443,15 @@
     border-radius: 4px 4px 0 0;
     border-bottom: none;
 }
+.OwO-open .reset-button{
+    border-radius: 4px 4px 0 0;
+    border-bottom: none;
+}
 .OwO-open .OwO-logo:hover{
+    animation:none;
+    -webkit-animation:none;
+}
+.OwO-open .reset-button:hover{
     animation:none;
     -webkit-animation:none;
 }
@@ -663,5 +700,4 @@
     color:#64609E;
     cursor: pointer;
 }
-
 </style>
