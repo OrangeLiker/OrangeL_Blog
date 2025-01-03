@@ -75,10 +75,10 @@
                           <span class="leftTitle">性别</span>
                           <span>{{userInfoObj.sex==0?'男':'女'}}</span>
                       </li>
-
-
                   </ul>
-
+                  <div class="passwordBtn">
+                      <a class="change-password-btn" @click="gotoChangePassword">修改密码</a>
+                  </div>
               </section>
           </div>
       </div>
@@ -121,7 +121,9 @@ import store from '../store'
               }
               return isJPG && isLt2M;
           },
-
+          gotoChangePassword:function(){
+              this.$router.push('/changePassword');
+          },
           saveInfoFun: function(){//保存编辑的用户信息
               var that = this;
 
@@ -258,5 +260,30 @@ import store from '../store'
 }
 .userInfoBox .fa-asterisk{
   color: #DF2050;
+}
+
+/* 修改密码按钮 */
+.change-password-btn {
+  display: inline-block;
+  background-color: #2993eb;  /* 浅蓝色背景 */
+  color: #eaecee;  /* 深蓝色文字 */
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;  /* 添加过渡效果 */
+  text-decoration: none;  /* 去掉下划线 */
+  border: 1px solid transparent;
+}
+
+.change-password-btn:hover {
+  background-color: #0d9eff;  /* 深蓝色背景 */
+  color: white;  /* 白色文字 */
+  border: 1px solid #006bb3;  /* 给按钮加上边框 */
+}
+
+.change-password-btn:focus {
+  outline: none;  /* 去掉点击时的边框 */
 }
 </style>

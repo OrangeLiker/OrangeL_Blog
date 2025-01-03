@@ -85,6 +85,13 @@ export default new Router({
 			},
 			name: 'UserInfo'
 		}, //用户个人中心
-
+    {
+      path: '/ChangePassword',
+      component: resolve => require(['../pages/ChangePassword.vue'],resolve),
+      meta: {
+        auth:true
+      },
+      name: 'ChangePassword'
+    }
 	]
 })

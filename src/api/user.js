@@ -53,3 +53,15 @@ export function savaUserInfo(userinfo) {
         data: userinfo
     })
 }
+
+export function changePassword(userId,oldPassword,newPassword) {
+    return request({
+        url: '/user/changePassword',
+        method: 'post',
+        data:{
+            "userId": Number(userId),
+            "oldPassword": oldPassword,
+            "newPassword": newPassword
+        }
+    })
+}

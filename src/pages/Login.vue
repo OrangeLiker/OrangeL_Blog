@@ -187,6 +187,10 @@ import {setToken} from '../utils/auth.js'
                 userLogin(this.username,this.password).then((response)=>{
                     // 登录成功记录token和用户信息，登录失败给对应提示
                     setToken(response.token)
+
+                   //清除logUrl，防止登录后跳转，只需要登录到首页
+                    localStorage.removeItem('logUrl');
+
                     // 存储用户信息
                     localStorage.setItem("userInfo",JSON.stringify(response.userInfo))
                     if(localStorage.getItem('logUrl')){
