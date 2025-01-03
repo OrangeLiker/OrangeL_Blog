@@ -1,6 +1,7 @@
 package org.orange.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.orange.domain.dto.ChangePasswordDto;
 import org.orange.domain.dto.StatusDto;
 import org.orange.domain.dto.UserDto;
 import org.orange.domain.entity.User;
@@ -28,4 +29,5 @@ public interface UserService extends IService<User> {
 
     ResponseResult changeStatus(StatusDto status);
 
+    ResponseResult changePassword(ChangePasswordDto changePasswordDto);
 }

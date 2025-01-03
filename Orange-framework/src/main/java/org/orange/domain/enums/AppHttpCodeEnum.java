@@ -36,6 +36,12 @@ public enum AppHttpCodeEnum {
 
     CODE_CATEGORY_DESCRIPTION_NOT_NULL(526,"分类描述不能为空"),
 
+    RESET_PASSWORD_NOT_NULL(527,"重置信息不能为空"),
+
+    USER_NOT_FOUND(528,"用户不存在"),
+
+    ORIGIN_PASSWORD_ERROR(529,"原密码错误"),
+
     NO_CHANGES(540,"本次更新无修改");
     int code;
     String msg;

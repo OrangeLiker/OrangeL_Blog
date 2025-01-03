@@ -1,9 +1,11 @@
 package org.orange.service.impl;
 
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.orange.constans.SystemConstants;
+import org.orange.domain.dto.ChangePasswordDto;
 import org.orange.domain.dto.StatusDto;
 import org.orange.domain.dto.UserDto;
 import org.orange.domain.entity.Role;
@@ -21,6 +23,7 @@ import org.orange.mapper.UserRoleMapper;
 import org.orange.service.UserService;
 import org.orange.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -188,18 +191,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public ResponseResult updateUser(UserDto userDto) {
-//        User dbUser = userMapper.selectById(userDto.getId());
-//        List<Long> oldRoleIds = userRoleMapper.selectList(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, userDto.getId()))
-//                .stream().map(UserRole::getRoleId).collect(Collectors.toList());
-//        List<Long> newRoleIds = userDto.getRoleIds();
-//        if(dbUser.getUserName().equals(userDto.getUserName())
-//                &&dbUser.getNickName().equals(userDto.getNickName())
-//                &&dbUser.getPhonenumber().equals(userDto.getPhonenumber())
-//                &&dbUser.getEmail().equals(userDto.getEmail())
-//                &&dbUser.getSex().equals(userDto.getSex())
-//                &&dbUser.getStatus().equals(userDto.getStatus())&&compareList(oldRoleIds, newRoleIds)) {
-//            return ResponseResult.okResult(AppHttpCodeEnum.NO_CHANGES);
-//        }
         String newPhone=userDto.getPhonenumber();
         if(newPhone!=null){
             String oldPhone=userMapper.selectById(userDto.getId()).getPhonenumber();
@@ -242,6 +233,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return ResponseResult.okResult();
     }
 
+    @Override
+    public ResponseResult changePassword(ChangePasswordDto changePasswordDto) {
+        if(changePasswordDto == null){
+            throw new SystemException(AppHttpCodeEnum.RESET_PASSWORD_NOT_NULL);
+        }
+        User dbUser = userMapper.selectById(changePasswordDto.getUserId());
+        if(dbUser == null){
+            throw new SystemException(AppHttpCodeEnum.USER_NOT_FOUND);
+        }
+        String dbOldPassword = dbUser.getPassword();
+        System.out.println(dbOldPassword);
+        if(!passwordEncoder.matches(changePasswordDto.getOldPassword(),dbOldPassword)){
+            throw new SystemException(AppHttpCodeEnum.ORIGIN_PASSWORD_ERROR);
+        }
+        dbUser.setPassword(passwordEncoder.encode(changePasswordDto.getNewPassword()));
+        userMapper.updateById(dbUser);
+        //在Redis中删除当前登录用户的信息，使其重新登录
+        redisCache.deleteObject("bloglogin:"+changePasswordDto.getUserId());
+        return ResponseResult.okResult();
+    }
+
 
     //对数据进行重复性判断
     private boolean userNameExist(String userName){
@@ -266,5 +278,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             }
         }
         return true;
+    }
+
+    public static void main(String[] args) {
+        PasswordEncoder passwordEncoder1 = new BCryptPasswordEncoder();
+        String old="4310520";
+        System.out.println(passwordEncoder1.encode(old));
+
     }
 }

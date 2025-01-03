@@ -22,7 +22,14 @@
             <artifactId>Orange-framework</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.7.5</version>
+        </dependency>
+
     </dependencies>
+
     <build>
         <plugins>
             <plugin>

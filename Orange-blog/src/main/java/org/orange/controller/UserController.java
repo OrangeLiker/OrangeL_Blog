@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.orange.annotation.SystemLog;
+import org.orange.domain.dto.ChangePasswordDto;
 import org.orange.domain.entity.User;
 import org.orange.domain.enums.AppHttpCodeEnum;
 import org.orange.domain.response.ResponseResult;
@@ -60,6 +61,13 @@ public class UserController {
     @ApiOperation("获取验证码")
     public ResponseResult askCode(@RequestParam String email, @RequestParam String type) throws MessagingException, UnsupportedEncodingException {
         return emailService.sendVerificationEmail(email, type);
+    }
+
+    @PostMapping("/changePassword")
+    @SystemLog(businessName = "修改密码")
+    @ApiOperation("修改密码")
+    public ResponseResult changePassword(@RequestBody ChangePasswordDto changePasswordDto){
+        return userService.changePassword(changePasswordDto);
     }
 }
 
