@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @BelongsProject: Orange_Blog
  * @ClassName BlogLogoutController
- * @Description TODO
+ * @Description 前台退出登录模块
  * @Author WangZJ0908
  * @Date 2024/8/6
  * @Version: 1.0

@@ -1,7 +1,5 @@
 package org.orange.domain.enums;
 
-import org.orange.domain.entity.Tag;
-
 public enum AppHttpCodeEnum {
     // 成功
     SUCCESS(200,"操作成功"),
@@ -41,6 +39,10 @@ public enum AppHttpCodeEnum {
     USER_NOT_FOUND(528,"用户不存在"),
 
     ORIGIN_PASSWORD_ERROR(529,"原密码错误"),
+
+    NEW_PASSWORD_SAME(530,"新密码与原密码相同"),
+
+    COMMENT_ILLEGAL(531,"评论含有非法信息！"),
 
     NO_CHANGES(540,"本次更新无修改");
     int code;

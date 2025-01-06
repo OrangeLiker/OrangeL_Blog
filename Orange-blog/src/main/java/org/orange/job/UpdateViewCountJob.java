@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * @BelongsProject: Orange_Blog
  * @ClassName TestJon
- * @Description TODO
+ * @Description 定时任务查询redis中的浏览量并更新到数据库
  * @Author WangZJ0908
  * @Date 2024/8/7
  * @Version: 1.0

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * @BelongsProject: Orange_Blog
  * @ClassName CommentController
- * @Description TODO
+ * @Description 前台评论模块
  * @Author WangZJ0908
  * @Date 2024/8/6
  * @Version: 1.0

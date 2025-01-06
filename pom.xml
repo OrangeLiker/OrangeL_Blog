@@ -89,6 +89,12 @@
                 <artifactId>spring-boot-starter-validation</artifactId>
                 <version>3.3.2</version>
             </dependency>
+            <!--敏感词检测-->
+            <dependency>
+                <groupId>com.github.houbb</groupId>
+                <artifactId>sensitive-word</artifactId>
+                <version>0.8.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>

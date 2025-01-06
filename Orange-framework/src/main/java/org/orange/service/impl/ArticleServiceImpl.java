@@ -90,11 +90,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         //根据id查name
         List<Article> articles=page.getRecords();
-//        for循环遍历
-//        for(Article article:articles){
-//            Category category = categoryService.getById(article.getCategoryId());
-//            article.setCategoryName(category.getName());
-//        }
         //Stream流
         articles.stream()
                 .map(article -> article.setCategoryName(categoryService.getById(article.getCategoryId()).getName()))

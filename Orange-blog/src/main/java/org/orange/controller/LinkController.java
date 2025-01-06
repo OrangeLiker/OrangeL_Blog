@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 /**
  * @BelongsProject: Orange_Blog
  * @ClassName LinkController
- * @Description TODO
+ * @Description 前台友情链接模块
  * @Author WangZJ0908
  * @Date 2024/8/5
  * @Version: 1.0

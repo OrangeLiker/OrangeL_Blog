@@ -247,6 +247,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if(!passwordEncoder.matches(changePasswordDto.getOldPassword(),dbOldPassword)){
             throw new SystemException(AppHttpCodeEnum.ORIGIN_PASSWORD_ERROR);
         }
+        if(passwordEncoder.encode(changePasswordDto.getNewPassword()).equals(dbOldPassword)){
+            throw new SystemException(AppHttpCodeEnum.NEW_PASSWORD_SAME);
+        }
         dbUser.setPassword(passwordEncoder.encode(changePasswordDto.getNewPassword()));
         userMapper.updateById(dbUser);
         //在Redis中删除当前登录用户的信息，使其重新登录

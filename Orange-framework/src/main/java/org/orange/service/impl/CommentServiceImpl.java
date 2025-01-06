@@ -14,6 +14,7 @@ import org.orange.mapper.CommentMapper;
 import org.orange.service.CommentService;
 import org.orange.service.UserService;
 import org.orange.utils.BeanCopyUtils;
+import org.orange.utils.SensitiveWordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -34,6 +35,8 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     private UserService userService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private SensitiveWordUtil sensitiveWordUtil;
     @Override
     public ResponseResult getCommentList(String commentType, Long articleId, Integer pageNum, Integer pageSize) {
         //查询对应文章的根评论
@@ -64,6 +67,12 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         if(!StringUtils.hasText(comment.getContent())){
             throw new SystemException(AppHttpCodeEnum.CONTENT_NOTNULL);
         }
+
+        //敏感词检测
+        if(sensitiveWordUtil.contains(comment.getContent())){
+            return ResponseResult.errorResult(AppHttpCodeEnum.COMMENT_ILLEGAL,"评论内容包含敏感词："+String.join(", ", sensitiveWordUtil.findAll(comment.getContent())));
+        }
+
         save(comment);//保存评论,前提是已经通过SecurityUtils中的方法结合注解填充了缺失字段
         return ResponseResult.okResult();
     }

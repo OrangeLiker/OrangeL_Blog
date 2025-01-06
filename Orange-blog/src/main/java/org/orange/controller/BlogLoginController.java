@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @BelongsProject: Orange_Blog
  * @ClassName BlogLoginController
- * @Description TODO
+ * @Description 前台登录模块
  * @Author WangZJ0908
  * @Date 2024/8/5
  * @Version: 1.0
